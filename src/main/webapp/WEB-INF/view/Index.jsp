@@ -10,7 +10,14 @@
 <head>
     <title>temp</title>
 </head>
-<body>
- adasfafg
+    <body>
+        <table align="center">
+            <tr>
+                <td><a href="Login.jsp">Login</a>
+                </td>
+                <td><a href="Registration.jsp">Register</a>
+                </td>
+            </tr>
+</table>
 </body>
 </html>

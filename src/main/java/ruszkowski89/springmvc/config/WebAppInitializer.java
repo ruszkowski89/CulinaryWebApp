@@ -1,19 +1,15 @@
-package ruszkowski89.springmvc;
+package ruszkowski89.springmvc.config;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import ruszkowski89.springmvc.dao.UserDaoImpl;
+import ruszkowski89.springmvc.model.User;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-public class MyWebApplicationInitializer implements WebApplicationInitializer {
+public class WebAppInitializer implements org.springframework.web.WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext){
@@ -25,5 +21,6 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic registration = servletContext.addServlet("app", dispatcher);
         registration.setLoadOnStartup(1);
         registration.addMapping("/app/*");
+
     }
 }
