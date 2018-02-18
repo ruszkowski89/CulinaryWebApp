@@ -1,9 +1,12 @@
 package ruszkowski89.springmvc.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "USER")
+@Component
 public class User {
 
     @Id

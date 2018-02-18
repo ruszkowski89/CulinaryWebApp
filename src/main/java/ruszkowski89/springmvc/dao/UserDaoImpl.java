@@ -4,10 +4,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ruszkowski89.springmvc.model.User;
 
 import java.util.List;
 
+@Transactional
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -23,8 +25,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void getUser(User user) {
-
+    public User getUserByUserName(String userName) {
+        return sessionFactory.getCurrentSession().get(User.class, userName);
     }
 
     @Override
