@@ -1,30 +1,28 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Bobas
-  Date: 2018-02-06
-  Time: 22:09
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head lang="en">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
 
 <div id="container" style="
         background-color: cornflowerblue;
         height: 100%">
 
-
     <div align="center" style="padding-top: 100px">
-        <form:form action="/app/MembersArea" method="get" modelAttribute="user">
+        <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
+        <form action="#" th:action="@{/app/processLogin}" method="post" th:object="${user}">
             <table>
                 <tr>
                     <td colspan="2" align="center"><h2>Login</h2></td>
                 </tr>
                 <tr>
                     <td>UserName:</td>
-                    <td><form:input path="userName"/></td>
+                    <td><input name="userName" type="text" th:field="*{userName}"/></td>
                 </tr>
                 <tr>
                     <td>Password:</td>
-                    <td><form:password path="password"/></td>
+                    <td><input name="password" type="password" th:field="*{password}"/></td>
                 </tr>
                 <tr align="center">
                     <td colspan="2">
@@ -32,12 +30,12 @@
                     </td>
                 </tr>
             </table>
-        </form:form>
+        </form>
     </div>
 
 
     <div align="center" style="padding-top: 100px">
-        <form:form action="/app/Register" method="get">
+        <form action="#" th:action="@{/app/Register}" method="get">
             <table>
                 <tr >
                     <td colspan="2" align="center"><h2>Register</h2></td>
@@ -48,6 +46,8 @@
                     </td>
                 </tr>
             </table>
-        </form:form>
+        </form>
     </div>
+
 </div>
+

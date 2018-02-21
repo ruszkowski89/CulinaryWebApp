@@ -1,13 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Bobas
-  Date: 2018-02-06
-  Time: 22:09
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+
 
 
 <div id="container" style="
@@ -16,22 +14,23 @@
 
 
     <div align="center" style="padding-top: 100px">
-        <form:form action="/app/Register" method="post" modelAttribute="userModel">
+        <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
+        <form action="#" method="post" th:action="@{/app/Register}" th:object="${user}">
             <table>
                 <tr>
                     <td colspan="2" align="center"><h2>Register</h2></td>
                 </tr>
                 <tr>
                     <td>UserName:</td>
-                    <td><form:input path="userName"/></td>
+                    <td><input type="text" th:field="*{userName}"/></td>
                 </tr>
                 <tr>
                     <td>Password:</td>
-                    <td><form:password path="password"/></td>
+                    <td><input type="password" th:field="*{password}" /></td>
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td><form:input path="email"/></td>
+                    <td><input type="text" th:field="*{email}"/></td>
                 </tr>
                 <tr align="center">
                     <td colspan="2">
@@ -39,7 +38,7 @@
                     </td>
                 </tr>
             </table>
-        </form:form>
+        </form>
     </div>
 
 </div>

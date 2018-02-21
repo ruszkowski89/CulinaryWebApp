@@ -5,8 +5,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER")
-@Component
 public class User {
 
     @Id
@@ -55,5 +53,12 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString(){
+        return "Customer[id=" + getId() +
+               "username=" + getUserName() +
+               "email=" + getEmail() + "]";
     }
 }

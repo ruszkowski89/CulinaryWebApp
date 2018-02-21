@@ -1,29 +1,72 @@
 package ruszkowski89.springmvc.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
-@Import({HibernateConfig.class})
+
+@Import({JpaConfig.class})
 @Configuration
-@ComponentScan(basePackages={"ruszkowski89.springmvc.controller"})
 @EnableWebMvc
-public class WebMvcConfig implements WebMvcConfigurer{
+@ComponentScan("ruszkowski89.springmvc")
+public class WebMvcConfig extends WebMvcConfigurationSupport implements ApplicationContextAware{
+
+    private ApplicationContext applicationContext;
+
+    public WebMvcConfig(){
+        super();
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext){
+        this.applicationContext = applicationContext;
+    }
 
     @Bean
-    public InternalResourceViewResolver internalResourceViewResolver(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/view/");
-        resolver.setSuffix(".jsp");
+    public ViewResolver viewResolver(){
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         return resolver;
+    }
+
+    @Bean
+    public ITemplateResolver templateResolver(){
+        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(applicationContext);
+        resolver.setTemplateMode("HTML5");
+        resolver.setPrefix("/WEB-INF/templates/");
+        resolver.setSuffix(".html");
+        return resolver;
+    }
+
+    @Bean
+    public TemplateEngine templateEngine(){
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.setTemplateResolver(templateResolver());
+        return templateEngine;
+    }
+
+
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages");
+        return messageSource;
+    }
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry){
+        super.addResourceHandlers(registry);
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
     }
 
 }

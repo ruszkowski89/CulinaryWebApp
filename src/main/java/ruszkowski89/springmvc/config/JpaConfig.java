@@ -7,9 +7,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -18,19 +24,26 @@ import java.util.Properties;
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:db.properties")
-@ComponentScan(basePackages = {"ruszkowski89.springmvc"}, excludeFilters={@ComponentScan.Filter(Controller.class)})
-public class HibernateConfig {
+@EnableJpaRepositories("ruszkowski89.springmvc.repository")
+public class JpaConfig {
 
     @Autowired
     private Environment environment;
 
+    @Bean(name="entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean(){
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setJpaVendorAdapter(getJpaVendorAdapter());
+        entityManager.setDataSource(getDataSource());
+        entityManager.setPersistenceUnitName("JpaPersistenceUnit");
+        entityManager.setPackagesToScan("ruszkowski89.springmvc.model");
+        entityManager.setJpaProperties(getHibernateProperties());
+        return entityManager;
+    }
+
     @Bean
-    public LocalSessionFactoryBean getSessionFactory(){
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(getDataSource());
-        sessionFactory.setHibernateProperties(getHibernateProperties());
-        sessionFactory.setPackagesToScan("ruszkowski89.springmvc.model");
-        return sessionFactory;
+    public JpaVendorAdapter getJpaVendorAdapter(){
+        return new HibernateJpaVendorAdapter();
     }
 
     @Bean
@@ -53,9 +66,9 @@ public class HibernateConfig {
     }
 
     @Bean
-    public HibernateTransactionManager getHibernateTransactionManager(){
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(getSessionFactory().getObject());
+    public PlatformTransactionManager getPlatformTransactionManager(){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(getEntityManagerFactoryBean().getObject());
         return transactionManager;
     }
 }
