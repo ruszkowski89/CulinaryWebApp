@@ -3,7 +3,7 @@
 
 <head lang="en">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link rel="stylesheet" media="all" type="text/css"  th:href="@{/css/style.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
 
@@ -12,7 +12,7 @@
 <div id="container">
 
   <div id="logoAndAccount">
-    <div id="account"><p onclick="location.href='Profile'" th:text="${'Logged as: ' + user.userName}">UserProfile</p></div>
+    <div id="account"><p th:text="${'Logged as: ' + user.userName}">UserProfile</p></div>
     <div id="logo">StupidCulinaryWebApp</div>
   </div>
 
@@ -36,7 +36,7 @@
   </div>
 
   <div id="content">
-    <span class="bigtitle"> Recipe no.1  </span>
+    <span class="bigtitle"> Add recipe:  </span>
     <div class="dottedline"></div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rhoncus suscipit posuere. Duis rhoncus eros ligula, sit amet dictum mi mattis id. Pellentesque a neque vitae ex semper mollis. Cras commodo hendrerit fermentum. Donec aliquam neque vestibulum ex fringilla, id hendrerit mauris auctor. Cras accumsan, eros id maximus aliquet, magna augue porttitor arcu, nec tempor turpis odio at sem. Donec eu justo vulputate, hendrerit sem vitae, faucibus diam. Aliquam sed placerat dolor. Nullam non facilisis quam, eget pulvinar nulla. Morbi nec sodales nisi, ac faucibus velit. Sed sit amet mauris mi. Etiam venenatis nisl nec dictum volutpat. Quisque purus orci, rhoncus sit amet feugiat a, varius vitae mi. Etiam mauris metus, sagittis vel neque euismod, vulputate facilisis tellus.
     <br /><br />

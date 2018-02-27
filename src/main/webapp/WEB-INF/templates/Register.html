@@ -7,38 +7,39 @@
 
 
 
+<body style="background-color: cornflowerblue">
+    <div id="container" style="
+            background-color: cornflowerblue;
+            height: 100%">
 
-<div id="container" style="
-        background-color: cornflowerblue;
-        height: 100%">
 
+        <div align="center" style="padding-top: 100px">
+            <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
+            <form action="#" method="post" th:action="@{/app/Register}" th:object="${user}">
+                <table>
+                    <tr>
+                        <td colspan="2" align="center"><h2>Register</h2></td>
+                    </tr>
+                    <tr>
+                        <td>UserName:</td>
+                        <td><input type="text" th:field="*{userName}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" th:field="*{password}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input type="text" th:field="*{email}"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="2">
+                            <input type="submit" value="Register"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
 
-    <div align="center" style="padding-top: 100px">
-        <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
-        <form action="#" method="post" th:action="@{/app/Register}" th:object="${user}">
-            <table>
-                <tr>
-                    <td colspan="2" align="center"><h2>Register</h2></td>
-                </tr>
-                <tr>
-                    <td>UserName:</td>
-                    <td><input type="text" th:field="*{userName}"/></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="password" th:field="*{password}" /></td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td><input type="text" th:field="*{email}"/></td>
-                </tr>
-                <tr align="center">
-                    <td colspan="2">
-                        <input type="submit" value="Register"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
     </div>
-
-</div>
+</body>

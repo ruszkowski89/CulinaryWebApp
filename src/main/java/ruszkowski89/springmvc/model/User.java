@@ -1,24 +1,35 @@
 package ruszkowski89.springmvc.model;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-@Entity
+@Entity(name = "USER")
 public class User {
 
+    @Column(name = "USER_ID")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name = "USER_USERNAME")
     private String userName;
+
+    @Column(name = "USER_PASSWORD")
     private String password;
+
+    @Column(name = "USER_EMAIL")
     private String email;
 
-    public User(String userName, String password, String email) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-    }
+    @Column(name = "USER_REGISTRATION_DATE")
+    @Temporal(TemporalType.DATE)
+    private Date registrationDate;
+
+    @OneToMany(mappedBy = "user")
+    private List<Recipe> recipesList = new ArrayList<Recipe>();
 
     public User() {
     }
@@ -29,6 +40,14 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public List<Recipe> getRecipesList() {
+        return recipesList;
+    }
+
+    public void setRecipesList(List<Recipe> recipesList) {
+        this.recipesList = recipesList;
     }
 
     public String getUserName() {
@@ -53,6 +72,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     @Override

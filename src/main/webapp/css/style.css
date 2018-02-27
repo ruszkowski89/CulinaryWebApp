@@ -1,0 +1,179 @@
+body
+{
+	background-color: gray;
+	font-family: 'Varela Round', sans-serif;
+}
+
+#container
+{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+#logo
+{
+	font-size: 36px;
+	color: white;
+	margin-top: 40px;
+	letter-spacing: 3px;
+	font-weight: 700;
+}
+
+#account
+{
+	font-size: 14px;
+	color: white;
+	text-align: right;
+}
+
+#menu
+{
+	background-color: #303030;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: #FFFFFF;
+	padding: 10px;
+}
+
+#topbar
+{
+	background-color: #128870;
+	color: white;
+	padding: 20px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	height: 170px;
+}
+
+#topbarl
+{
+	float: left;
+	width: 148px;
+	text-align: center;
+	border-right: 2px solid #000000;
+	padding-right: 13px;
+}
+
+#topbarr
+{
+	float: left;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 717px;
+	font-size: 16px;
+	text-align: justify;
+}
+
+#sidebarandcontent
+{
+}
+
+#sidebar
+{
+	float: left;
+	min-height: 620px; 
+	width: 141px;
+	padding: 20px;
+	padding-bottom: 60px !important;
+	background-color: #96989b;
+	font-size: 20px;
+	line-height: 35px;
+	border-right: 2px solid #000000;
+}
+
+#content
+{
+	float: left;
+	min-height: 620px; 
+	text-align: justify;
+	padding: 40px;
+	width: 737px;
+	background-color: #97989f;
+}
+
+#footer
+{
+	clear: both; 
+	color: white;
+	text-align: center;
+	padding: 20px;
+}
+
+.option
+{
+	float: left;
+	min-width: 50px;
+	height: 25px;
+	font-size: 18px;
+	padding: 10px;
+	border-right: 2px solid #edb47b;
+	padding-right: 110px;
+	opacity: 0.8;
+}
+
+.option:hover
+{
+	background-color: #000000;
+	cursor: pointer;
+}
+
+.optionL
+{
+	text-align: center;
+	border-bottom: 1px dotted #000000;
+}
+
+.optionL:hover
+{
+	background-color: darkgray;
+	cursor: pointer;
+	color: white;
+}
+
+.optionlast
+{
+	float: left;
+	min-width: 50px;
+	height: 25px;
+	font-size: 18px;
+	padding: 10px;
+	padding-right: 110px;
+	opacity: 0.8;
+}
+
+.optionlast:hover
+{
+	background-color: #000000;
+	cursor: pointer;
+}
+
+.optionlastL
+{
+	text-align: center;
+}
+
+.optionlastL:hover
+{
+	background-color: darkgray;
+	cursor: pointer;
+	color: white;
+}
+
+.bigtitle
+{
+	font-size: 28px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+.dottedline
+{
+	height: 2px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	border-bottom: 2px dotted #444444;
+}

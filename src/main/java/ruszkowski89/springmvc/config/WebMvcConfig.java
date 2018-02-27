@@ -10,6 +10,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 
@@ -41,7 +42,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements Applicat
     public ITemplateResolver templateResolver(){
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setApplicationContext(applicationContext);
-        resolver.setTemplateMode("HTML5");
+        resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setPrefix("/WEB-INF/templates/");
         resolver.setSuffix(".html");
         return resolver;
@@ -66,7 +67,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements Applicat
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry){
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/**");
     }
 
 }
