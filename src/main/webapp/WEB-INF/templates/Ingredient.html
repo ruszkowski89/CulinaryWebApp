@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+
+<body>
+
+<div id="container">
+
+  <div id="logoAndAccount">
+    <div id="account"><p th:text="${'Logged as: ' + user.userName}">UserProfile</p></div>
+    <div id="logo">StupidCulinaryWebApp</div>
+  </div>
+
+  <div id="menu">
+    <div class="option" onclick="location.href='MembersArea'">Home </div>
+    <div class="option" onclick="location.href='Recipes'">Recipes </div>
+    <div class="option" onclick="location.href='Ingredients'">Ingredients </div>
+    <div class="option" onclick="location.href='Users'">Users</div>
+    <div class="option" onclick="location.href='AddRecipe'">Add Recipe</div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div id="sidebar">
+    <div class="optionL" onclick="location.href='MembersArea'">Home <br /></div>
+    <div class="optionL" onclick="location.href='Recipes'">Recipes <br /></div>
+    <div class="optionL" onclick="location.href='Ingredients'">Ingredients<br /></div>
+    <div class="optionL" onclick="location.href='Users'">Users <br /></div>
+    <div class="optionL" onclick="location.href='AddRecipe'">Add Recipe <br /></div>
+    <div style="clear: both;"></div>
+
+  </div>
+
+  <div id="content">
+    <span class="bigtitle"> Ingredients  </span>
+    <div class="dottedline"></div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rhoncus suscipit posuere. Duis rhoncus eros ligula, sit amet dictum mi mattis id. Pellentesque a neque vitae ex semper mollis. Cras commodo hendrerit fermentum. Donec aliquam neque vestibulum ex fringilla, id hendrerit mauris auctor. Cras accumsan, eros id maximus aliquet, magna augue porttitor arcu, nec tempor turpis odio at sem. Donec eu justo vulputate, hendrerit sem vitae, faucibus diam. Aliquam sed placerat dolor. Nullam non facilisis quam, eget pulvinar nulla. Morbi nec sodales nisi, ac faucibus velit. Sed sit amet mauris mi. Etiam venenatis nisl nec dictum volutpat. Quisque purus orci, rhoncus sit amet feugiat a, varius vitae mi. Etiam mauris metus, sagittis vel neque euismod, vulputate facilisis tellus.
+    <br /><br />
+    Donec id sem massa. Praesent eget dictum enim. Ut a justo erat. Aliquam ut venenatis augue, id suscipit eros. Suspendisse consequat magna ac ex fermentum porttitor. Nunc porttitor, orci a pellentesque vulputate, erat tellus condimentum lectus, ut pellentesque orci ante ut neque. Cras ac est ut erat convallis vestibulum. Donec pretium erat nec mi blandit, sed consectetur turpis lobortis. Cras in lacus non neque vulputate fermentum quis sit amet metus. Etiam egestas semper justo sed dapibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dolor neque, semper a augue nec, ultrices vulputate urna.
+    <br /><br />
+    Nunc laoreet tempor mauris, vitae hendrerit arcu varius eget. Suspendisse sodales accumsan sapien, sit amet imperdiet dolor commodo vel. Sed condimentum nulla a arcu pharetra tempor. Aliquam erat volutpat. Proin accumsan maximus elit, ac fringilla urna pretium sit amet. Nulla ac feugiat augue. Nunc vulputate placerat magna, quis vulputate tortor pulvinar et. Quisque ut est faucibus, hendrerit nisi non, laoreet orci. Aenean ac convallis massa, sed aliquam elit.
+  </div>
+
+  <div id="footer">
+     &copy; All rights reserved
+  </div>
+
+</div>
+
+</body>

@@ -15,10 +15,14 @@ import java.util.List;
 @Transactional
 @Service("RecipeService")
 public class RecipeServiceImpl implements RecipeService {
+
     @Autowired
     private RecipeRepository recipeRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private IngredientService ingredientService;
+
 
     @Override
     public List<Recipe> getAllRecipes() {
@@ -67,6 +71,11 @@ public class RecipeServiceImpl implements RecipeService {
     public void addRecipe(User user, Recipe recipe) {
         recipeRepository.save(recipe);
         userService.getUserById(user.getId()).getRecipesList().add(recipe);
+    }
+
+    @Override
+    public void addIngredientToRecipe(Recipe recipe, Ingredient ingredient) {
+        recipeRepository.findById(recipe.getId()).getIngredients().add(ingredient);
     }
 
 

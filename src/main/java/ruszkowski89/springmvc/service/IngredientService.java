@@ -10,7 +10,7 @@ public interface IngredientService {
     List<Ingredient> getAllIngredients();
     Ingredient getIngredientById(long id);
     Ingredient getIngredientByName(String name);
-    void addIngredient(Recipe recipe, Ingredient ingredient);
+    void addIngredient(Ingredient ingredient);
     void updateIngredient(Ingredient ingredient);
     void deleteIngredientFromRecipe(Recipe recipe, Ingredient ingredient);
     void deleteIngredientFromDatabase(long id);

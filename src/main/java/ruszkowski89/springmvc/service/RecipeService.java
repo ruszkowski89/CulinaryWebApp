@@ -14,5 +14,6 @@ public interface RecipeService {
     void updateRecipe(Recipe recipe);
     void deleteRecipe(long id);
     void addRecipe(User user, Recipe recipe);
+    void addIngredientToRecipe(Recipe recipe, Ingredient ingredient);
 
 }

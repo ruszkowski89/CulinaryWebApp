@@ -12,7 +12,7 @@ import ruszkowski89.springmvc.service.UserService;
 @SessionAttributes("user")
 @Transactional
 @Controller
-public class LoginController {
+class LoginController {
 
     @Autowired
     private UserService userService;
