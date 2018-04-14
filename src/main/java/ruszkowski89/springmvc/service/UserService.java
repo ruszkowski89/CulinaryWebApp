@@ -1,19 +1,22 @@
 package ruszkowski89.springmvc.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ruszkowski89.springmvc.model.Recipe;
 import ruszkowski89.springmvc.model.User;
 
+import java.security.Principal;
 import java.util.List;
 
-public interface UserService {
+// extending UserDetailsService is needed for authentication purposes
 
-    boolean verifyPassword(String userName, String password);
-    boolean verifyUserDetailsBeforeRegistration(String userName, String email, String password);
-    List<User> getAllUsers();
-    User getUserById(long id);
-    User getUserByUserName(String userName);
-    boolean addUser(User user);
-    void updateUser(User user);
-    void deleteUser(long id);
-
+public interface UserService extends UserDetailsService {
+    List<User> getAll();
+    User get(long id);
+    User get(String userName);
+    User getByEmail(String email);
+    void deleteRecipeFromProfile(User user, Recipe recipe);
+    boolean save(User user);
+    void update(User user);
+    void delete(long id);
+    User getCurrentlyLoggedUser();
 }

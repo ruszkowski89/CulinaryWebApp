@@ -1,60 +1,59 @@
 package ruszkowski89.springmvc.service;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ruszkowski89.springmvc.model.Ingredient;
 import ruszkowski89.springmvc.model.Recipe;
 import ruszkowski89.springmvc.repository.IngredientRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+@Service("ingredientService")
+@Transactional
 public class IngredientServiceImpl implements IngredientService {
+    private final IngredientRepository ingredientRepository;
+
     @Autowired
-    private IngredientRepository ingredientRepository;
-    @Autowired
-    private RecipeService recipeService;
-
-    @Override
-    public List<Ingredient> getAllIngredients() {
-        List<Ingredient> ingredientList = new ArrayList<Ingredient>();
-        for (Ingredient ingredient: ingredientRepository.findAll())
-            ingredientList.add(ingredient);
-
-        return ingredientList;
+    public IngredientServiceImpl(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
-    public Ingredient getIngredientById(long id) {
-        return ingredientRepository.findById(id);
-    }
-
-    @Override
-    public Ingredient getIngredientByName(String name) {
-        return ingredientRepository.findByName(name);
-    }
-
-    @Override
-    public void addIngredient(Recipe recipe, Ingredient ingredient) {
-        recipeService.getRecipeById(recipe.getId()).getIngredients().add(ingredient);
-    }
-
-    @Override
-    public void updateIngredient(Ingredient ingredient) {
+    public void save(Ingredient ingredient) {
         ingredientRepository.save(ingredient);
     }
 
     @Override
-    public void deleteIngredientFromRecipe(Recipe recipe, Ingredient ingredient) {
-
-        for (Ingredient ingredient1: recipe.getIngredients()){
-            if (ingredient1.getName().equals(ingredient.getName()))
-                recipe.getIngredients().remove(ingredient1);
-        }
+    public List<Ingredient> getAll() {
+        return Lists.newArrayList(ingredientRepository.findAll());
     }
 
     @Override
-    public void deleteIngredientFromDatabase(long id) {
+    public Ingredient get(long id) {
+        return ingredientRepository.findById(id);
+    }
+
+    @Override
+    public Ingredient get(String name) {
+        return ingredientRepository.findByName(name);
+    }
+
+    @Override
+    public void update(Ingredient ingredient) {
+        ingredientRepository.save(ingredient);
+    }
+
+    @Override
+    public void deleteFromDatabase(long id) {
         ingredientRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean isInDatabase(Ingredient ingredient) {
+        return ingredientRepository.existsByName(ingredient.getName());
     }
 
 }

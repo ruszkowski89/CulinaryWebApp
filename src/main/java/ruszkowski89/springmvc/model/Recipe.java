@@ -3,45 +3,42 @@ package ruszkowski89.springmvc.model;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.*;
 
+@Component
 @Entity(name = "RECIPE")
 public class Recipe {
-
-    @Column(name = "RECIPE_ID")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "RECIPE_ID")
     private long id;
 
     @Column(name = "RECIPE_NAME")
     private String name;
 
-    @Column(name = "RECIPE_INGREDIENTS")
     @ManyToMany
-    private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+    @Column(name = "RECIPE_INGREDIENTS")
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     @Column(name = "RECIPE_TIME")
     private int timeInMinutes;
 
-    @Column(name = "RECIPE_DESCRIPTION")
     @Lob
+    @Column(name = "RECIPE_DESCRIPTION")
     private String description;
 
-    @Column(name = "RECIPE_PREPARATION_STEPS")
     @GenericGenerator(name = "increment-gen", strategy = "increment")
     @CollectionId(columns = {@Column(name = "PREPARATION_STEP_ID")},
-            generator = "increment-gen", type = @Type(type = "long"))
+                  generator = "increment-gen", type = @Type(type = "long"))
     @ElementCollection
+    @Column(name = "RECIPE_PREPARATION_STEPS")
     private List<PreparationStep> preparationSteps = new ArrayList<PreparationStep>();
 
-    @Column(name = "RECIPE_SUBMISSION_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date submissionDate;
-
-    @JoinColumn(name = "USER_ID")
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     public User getUser() {
@@ -79,11 +76,11 @@ public class Recipe {
         this.timeInMinutes = timeInMinutes;
     }
 
-    public Set<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -93,14 +90,6 @@ public class Recipe {
 
     public void setPreparationSteps(List<PreparationStep> preparationSteps) {
         this.preparationSteps = preparationSteps;
-    }
-
-    public Date getSubmissionDate() {
-        return submissionDate;
-    }
-
-    public void setSubmissionDate(Date submissionDate) {
-        this.submissionDate = submissionDate;
     }
 
     public String getDescription() {

@@ -3,7 +3,7 @@
 
 <head lang="en">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link rel="stylesheet" media="all" type="text/css"  th:href="@{/css/style.css}"/>
+  <link rel="stylesheet" media="all" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
 
@@ -12,31 +12,38 @@
 <div id="container">
 
   <div id="logoAndAccount">
-    <div id="account"><p onclick="location.href='Profile'" th:text="${'Logged as: ' + user.userName}">UserProfile</p></div>
+    <div id="account" th:if="${#httpServletRequest.remoteUser != null}">
+      <p onclick="location.href='Profile'" th:text="${'Logged as: ' + #httpServletRequest.remoteUser}">UserProfile</p>
+      <p>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Log out" />
+      </form>
+      </p>
+    </div>
+
     <div id="logo">StupidCulinaryWebApp</div>
   </div>
 
   <div id="menu">
-    <div class="option" onclick="location.href='MainMenu'">Home </div>
-    <div class="option" onclick="location.href='Recipes'">Recipes </div>
-    <div class="option" onclick="location.href='Ingredients'">Ingredients </div>
-    <div class="option" onclick="location.href='Users'">Users</div>
-    <div class="option" onclick="location.href='AddRecipe'">Add Recipe</div>
+    <a th:href="@{/app/}"> <div class="option" > Home </div> </a>
+    <a th:href="@{/app/recipes}"> <div class="option" > Recipes </div> </a>
+    <a th:href="@{/app/ingredients}"> <div class="option" > Ingredients </div> </a>
+    <a th:href="@{/app/users}"> <div class="option" > Users </div> </a>
+    <a th:href="@{/app/recipes/addRecipe}"> <div class="option" > Add recipe </div> </a>
     <div style="clear: both;"></div>
   </div>
 
   <div id="sidebar">
-    <div class="optionL" onclick="location.href='MainMenu'">Home <br /></div>
-    <div class="optionL" onclick="location.href='Recipes'">Recipes <br /></div>
-    <div class="optionL" onclick="location.href='Ingredients'">Ingredients<br /></div>
-    <div class="optionL" onclick="location.href='Users'">Users <br /></div>
-    <div class="optionL" onclick="location.href='AddRecipe'">Add Recipe <br /></div>
+    <a th:href="@{/app/}"> <div class="optionL" > Home </div> </a>
+    <a th:href="@{/app/recipes}"> <div class="optionL" > Recipes </div> </a>
+    <a th:href="@{/app/ingredients}"> <div class="optionL" > Ingredients </div> </a>
+    <a th:href="@{/app/users}"> <div class="optionL" > Users </div> </a>
+    <a th:href="@{/app/recipes/addRecipe}"> <div class="optionL" > Add recipe </div> </a>
     <div style="clear: both;"></div>
-
   </div>
 
   <div id="content">
-    <span class="bigtitle"> Recipe no.1  </span>
+    <span class="bigtitle" th:text="${recipe.name}"> Recipe:  </span>
     <div class="dottedline"></div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rhoncus suscipit posuere. Duis rhoncus eros ligula, sit amet dictum mi mattis id. Pellentesque a neque vitae ex semper mollis. Cras commodo hendrerit fermentum. Donec aliquam neque vestibulum ex fringilla, id hendrerit mauris auctor. Cras accumsan, eros id maximus aliquet, magna augue porttitor arcu, nec tempor turpis odio at sem. Donec eu justo vulputate, hendrerit sem vitae, faucibus diam. Aliquam sed placerat dolor. Nullam non facilisis quam, eget pulvinar nulla. Morbi nec sodales nisi, ac faucibus velit. Sed sit amet mauris mi. Etiam venenatis nisl nec dictum volutpat. Quisque purus orci, rhoncus sit amet feugiat a, varius vitae mi. Etiam mauris metus, sagittis vel neque euismod, vulputate facilisis tellus.
     <br /><br />

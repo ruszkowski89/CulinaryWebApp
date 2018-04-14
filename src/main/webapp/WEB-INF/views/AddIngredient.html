@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+
+<body>
+
+<div id="container">
+
+  <div id="logoAndAccount">
+    <div id="account" th:if="${#httpServletRequest.remoteUser != null}">
+      <p onclick="location.href='Profile'" th:text="${'Logged as: ' + #httpServletRequest.remoteUser}">UserProfile</p>
+      <p>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Log out" />
+      </form>
+      </p>
+    </div>
+
+    <div id="logo">StupidCulinaryWebApp</div>
+  </div>
+
+  <div id="menu">
+    <a th:href="@{/app/}"> <div class="option" > Home </div> </a>
+    <a th:href="@{/app/recipes}"> <div class="option" > Recipes </div> </a>
+    <a th:href="@{/app/ingredients}"> <div class="option" > Ingredients </div> </a>
+    <a th:href="@{/app/users}"> <div class="option" > Users </div> </a>
+    <a th:href="@{/app/recipes/addRecipe}"> <div class="option" > Add recipe </div> </a>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div id="sidebar">
+    <a th:href="@{/app/}"> <div class="optionL" > Home </div> </a>
+    <a th:href="@{/app/recipes}"> <div class="optionL" > Recipes </div> </a>
+    <a th:href="@{/app/ingredients}"> <div class="optionL" > Ingredients </div> </a>
+    <a th:href="@{/app/users}"> <div class="optionL" > Users </div> </a>
+    <a th:href="@{/app/recipes/addRecipe}"> <div class="optionL" > Add recipe </div> </a>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div id="content">
+    <span class="bigtitle"> Add ingredient </span>
+    <div class="dottedline"></div>
+
+    <!--/*@thymesVar id="ingredient" type="ruszkowski89.springmvc.model.Ingredient"*/-->
+    <form action="#" method="post" th:action="@{/app/ingredients/processAddIngredientForm}" th:object="${ingredient}">
+      <table>
+        <tr>
+          <div>
+            <p th:utext="#{AddIngredient.start}">Enter details of ingredient you want to add:</p>
+          </div>
+        </tr>
+        <tr>
+          <td>Name:</td>
+          <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+          <td>Description:</td>
+          <td><textarea type="text" th:field="*{description}"></textarea></td>
+        </tr>
+
+        <tr align="center">
+          <td colspan="2">
+            <input type="submit" value="Add"/>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+
+  <div id="footer">
+     &copy; All rights reserved
+  </div>
+
+</div>
+
+</body>

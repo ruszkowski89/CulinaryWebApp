@@ -1,37 +1,60 @@
 package ruszkowski89.springmvc.model;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+@Component
 @Entity(name = "USER")
 public class User {
-
-    @Column(name = "USER_ID")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID")
     private long id;
 
-    @Column(name = "USER_USERNAME")
+    @NotNull
+    @Size(min = 3, max = 20)
+    @Column(name = "USER_USERNAME", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "USER_PASSWORD")
+    @NotNull
+    @Size(min = 5)
+    @Column(name = "USER_PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "USER_EMAIL")
+    @Email
+    @NotNull
+    @Column(name = "USER_EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "USER_REGISTRATION_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date registrationDate;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+               name = "USERS_ROLES",
+               joinColumns = @JoinColumn(
+                   name = "USER_ID", referencedColumnName = "USER_ID"),
+               inverseJoinColumns = @JoinColumn(
+                   name = "ROLE_ID", referencedColumnName = "ROLE_ID"))
+    private Collection<Role> roles;
 
     @OneToMany(mappedBy = "user")
     private List<Recipe> recipesList = new ArrayList<Recipe>();
 
     public User() {
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public long getId() {
@@ -74,18 +97,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
     @Override
     public String toString(){
-        return "Customer[id=" + getId() +
-               "username=" + getUserName() +
-               "email=" + getEmail() + "]";
+        return "User[id=" + getId() + ", " +
+               "username=" + getUserName() + ", " +
+               "email=" + getEmail() + ", " +
+               "roles=" + getRoles() + "]";
     }
 }

@@ -7,11 +7,12 @@ import ruszkowski89.springmvc.repository.IngredientRepository;
 import java.util.List;
 
 public interface IngredientService {
-    List<Ingredient> getAllIngredients();
-    Ingredient getIngredientById(long id);
-    Ingredient getIngredientByName(String name);
-    void addIngredient(Ingredient ingredient);
-    void updateIngredient(Ingredient ingredient);
-    void deleteIngredientFromRecipe(Recipe recipe, Ingredient ingredient);
-    void deleteIngredientFromDatabase(long id);
+    List<Ingredient> getAll();
+    Ingredient get(long id);
+    Ingredient get(String name);
+    void save(Ingredient ingredient);
+    void update(Ingredient ingredient);
+    void deleteFromDatabase(long id);
+    boolean isInDatabase(Ingredient ingredient);
+
 }

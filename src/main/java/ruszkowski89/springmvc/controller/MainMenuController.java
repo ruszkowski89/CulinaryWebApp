@@ -5,188 +5,56 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import ruszkowski89.springmvc.model.Ingredient;
-import ruszkowski89.springmvc.model.Recipe;
-import ruszkowski89.springmvc.model.User;
-import ruszkowski89.springmvc.service.IngredientService;
-import ruszkowski89.springmvc.service.RecipeService;
-
-import javax.persistence.criteria.CriteriaBuilder;
+import ruszkowski89.springmvc.service.UserService;
 
 @Transactional
 @RestController
 class MainMenuController {
+    private final UserService userService;
 
     @Autowired
-    private RecipeService recipeService;
-    @Autowired
-    private IngredientService ingredientService;
-
-
-
-    // -----------------------------------------//
-    //                   GET                    //
-    // -----------------------------------------//
-
-
-
-    @GetMapping(value = "/Users")
-    public ModelAndView displayAllUsers(@SessionAttribute("user")User user){
-        return initiateView(user,"Users")
-                            .addObject("userList", recipeService.getAllRecipes());
+    public MainMenuController(UserService userService) {
+        this.userService = userService;
     }
 
-
-
-    @GetMapping(value = "/Users/{id}")
-    public ModelAndView displaySingleUser(@SessionAttribute("user")User user,
-                                          @PathVariable("id") Long id){
-        return initiateView(user,"User")
-                            .addObject("user", recipeService.getRecipeById(id));
+    @GetMapping(value = {"/"})
+    public ModelAndView homePage(){
+        return new ModelAndView("HomePage");
     }
 
-
-
-    @GetMapping(value = "/Profile")
-    public ModelAndView displayProfile(@SessionAttribute("user")User user){
-        return initiateView(user,"Profile");
+    @GetMapping(value = {"/users/", "/users"})
+    public ModelAndView usersPage(){
+        return new ModelAndView(
+                                "Users",
+                                "userList",
+                                userService.getAll());
     }
 
-
-
-    @GetMapping(value = "/MainMenu")
-    public ModelAndView displayMainMenu(@SessionAttribute("user")User user){
-        return initiateView(user,"MainMenu");
+    @GetMapping(value = {"/users/{id}/", "/users/{id}"})
+    public ModelAndView singleUserPage(@PathVariable("id") Long id){
+        return new ModelAndView(
+                                "User",
+                                "userToDisplay",
+                                userService.get(id));
     }
 
-
-
-    @GetMapping(value = "/Recipes")
-    public ModelAndView displayAllRecipes(@SessionAttribute("user")User user,
-                                          @PathVariable("id")Long id){
-
-        return initiateView(user,"Recipes")
-                            .addObject("recipeList", recipeService.getAllRecipes());
+    @GetMapping(value = {"/profile/", "/profile"})
+    public ModelAndView profilePage(){
+        return new ModelAndView(
+                                "Profile",
+                                "user",
+                                 userService.getCurrentlyLoggedUser());
     }
 
-
-
-    @GetMapping(value = "/Recipes/{id}")
-    public ModelAndView displaySingleRecipe(@SessionAttribute("user")User user,
-                                            @PathVariable("id")Long id){
-        ModelAndView mav = initiateView(user, "Recipe");
-        return mav.addObject("recipe", recipeService.getRecipeById(id));
-    }
-
-
-
-    @GetMapping(value = "/Ingredients")
-    public ModelAndView displayAllIngredients(@SessionAttribute("user")User user){
-        return initiateView(user,"Ingredients");
-    }
-
-
-
-    @GetMapping(value = "/Ingredients/{id}")
-    public ModelAndView displaySingleIngredient(@SessionAttribute("user")User user,
-                                                @PathVariable("id")Long id){
-          return initiateView(user,"Ingredient")
-                              .addObject("ingredient", ingredientService.getIngredientById(id));
-    }
-
-
-
-    @GetMapping(value = "/AddRecipe")
-    public ModelAndView displayAddRecipe(@SessionAttribute("user")User user){
-        return initiateView(user,"AddRecipe")
-                            .addObject("ingredientList", ingredientService.getAllIngredients());
-    }
-
-
-
-    // -----------------------------------------//
-    //                  POST                    //
-    // -----------------------------------------//
-
-
-
-    @PostMapping(value = "/AddIngredientToDatabase")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String processAddIngredient(@SessionAttribute("user")User user,
-                                       @ModelAttribute("ingredient")Ingredient ingredient){
-        ingredientService.addIngredient(ingredient);
-        return "redirect:Ingredients";
-    }
-
-
-
-    @PostMapping(value = "/AddRecipe")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String processAddRecipe(@SessionAttribute("user")User user,
-                                   @ModelAttribute("recipe")Recipe recipe){
-        recipeService.addRecipe(user, recipe);
-        return "redirect:Recipes";
-    }
-
-
-
-    @PostMapping(value = "/AddIngredientToRecipe")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addIngredientToRecipe(@SessionAttribute("user")User user,
-                                        @ModelAttribute("ingredient")Ingredient ingredient){
-        ModelAndView mav = initiateView(user, "AddRecipe"),
-    }
-
-
-
-    // -----------------------------------------//
-    //                 MODEL ATTRIBUTE          //
-    // -----------------------------------------//
-
-
-
-    @ModelAttribute("recipe")
-    public Recipe getRecipeObject(){
-        return new Recipe();
-    }
-
-
-
-    @ModelAttribute("ingredient")
-    public Ingredient getIngredientObject(){
-        return new Ingredient();
-    }
-
-
-
-    // -----------------------------------------//
-    //              INITIATE VIEW               //
-    // -----------------------------------------//
-
-
-
-    // to create ModelAndView object with USER object added to model from @SessionAttribute
-    public ModelAndView initiateView(@SessionAttribute("user")User user, String viewName){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName(viewName);
-        mav.addObject("user", user);
-        return mav;
-    }
-
-
-
-    // -----------------------------------------//
-    //               EXCEPTIONS                 //
-    // -----------------------------------------//
-
-
-
+    // TODO
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public class BadRequestException extends RuntimeException {
-        //
+
     }
+
+    // TODO
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public class ResourceNotFoundException extends RuntimeException {
-        //
+
     }
 }

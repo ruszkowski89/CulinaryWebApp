@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+
+
+
+    <title>Registration</title>
+</head>
+
+<body style="background-color: cornflowerblue">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1>Registration</h1>
+            <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
+            <form th:action="@{/app/processRegister}" th:object="${user}" method="post">
+
+                <table>
+                    <tr>
+                        <td>UserName: </td>
+                        <td><input type="text" th:field="*{userName}" /></td>
+                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input type="text" th:field="*{email}" /></td>
+                        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                    </tr>
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="password" th:field="*{password}" /></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                    </tr>
+                </table>
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

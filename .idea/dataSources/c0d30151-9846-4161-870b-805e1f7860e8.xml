@@ -930,207 +930,202 @@
     <table id="235" parent="2" name="recipe_preparationsteps">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="236" parent="2" name="user">
+    <table id="236" parent="2" name="role">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="237" parent="2" name="user_recipes">
+    <table id="237" parent="2" name="user">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="238" parent="230" name="next_val">
+    <table id="238" parent="2" name="users_roles">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="239" parent="230" name="next_val">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="231" name="INGREDIENT_ID">
+    <column id="240" parent="231" name="INGREDIENT_ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="231" name="INGREDIENT_DESCRIPTION">
+    <column id="241" parent="231" name="INGREDIENT_DESCRIPTION">
       <Position>2</Position>
       <DataType>longtext|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="231" name="INGREDIENT_NAME">
+    <column id="242" parent="231" name="INGREDIENT_NAME">
       <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="243" parent="231" name="quantity">
+      <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="242" parent="231" name="PRIMARY">
+    <key id="244" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>INGREDIENT_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="243" parent="232" name="INGREDIENT_INGREDIENT_ID">
+    <column id="245" parent="232" name="INGREDIENT_INGREDIENT_ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="232" name="recipeList_RECIPE_ID">
+    <column id="246" parent="232" name="recipeList_RECIPE_ID">
       <Position>2</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="245" parent="232" name="FK6ewl3t3ecr434h0txp95km6by">
+    <index id="247" parent="232" name="FK6ewl3t3ecr434h0txp95km6by">
       <ColNames>INGREDIENT_INGREDIENT_ID</ColNames>
     </index>
-    <index id="246" parent="232" name="FKlitjvw54mgmtqef39qmuyfj0p">
+    <index id="248" parent="232" name="FKlitjvw54mgmtqef39qmuyfj0p">
       <ColNames>recipeList_RECIPE_ID</ColNames>
     </index>
-    <foreign-key id="247" parent="232" name="FK6ewl3t3ecr434h0txp95km6by">
+    <foreign-key id="249" parent="232" name="FK6ewl3t3ecr434h0txp95km6by">
       <ColNames>INGREDIENT_INGREDIENT_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>ingredient</RefTableName>
       <RefColNames>INGREDIENT_ID</RefColNames>
     </foreign-key>
-    <foreign-key id="248" parent="232" name="FKlitjvw54mgmtqef39qmuyfj0p">
+    <foreign-key id="250" parent="232" name="FKlitjvw54mgmtqef39qmuyfj0p">
       <ColNames>recipeList_RECIPE_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>recipe</RefTableName>
       <RefColNames>RECIPE_ID</RefColNames>
     </foreign-key>
-    <column id="249" parent="233" name="RECIPE_ID">
+    <column id="251" parent="233" name="RECIPE_ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="233" name="RECIPE_DESCRIPTION">
+    <column id="252" parent="233" name="RECIPE_DESCRIPTION">
       <Position>2</Position>
       <DataType>longtext|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="233" name="RECIPE_NAME">
+    <column id="253" parent="233" name="RECIPE_NAME">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="233" name="RECIPE_SUBMISSION_DATE">
+    <column id="254" parent="233" name="RECIPE_TIME">
       <Position>4</Position>
-      <DataType>date|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="253" parent="233" name="RECIPE_TIME">
-      <Position>5</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="233" name="user_USER_ID">
-      <Position>6</Position>
+    <column id="255" parent="233" name="USER_ID">
+      <Position>5</Position>
       <DataType>bigint(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="255" parent="233" name="FKcs4jpdlgyit3i4mf0qexccfc8">
-      <ColNames>user_USER_ID</ColNames>
+    <index id="256" parent="233" name="FKbbd0n10ny9jqofrpukenruw9y">
+      <ColNames>USER_ID</ColNames>
     </index>
-    <key id="256" parent="233" name="PRIMARY">
+    <key id="257" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>RECIPE_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="257" parent="233" name="FKcs4jpdlgyit3i4mf0qexccfc8">
-      <ColNames>user_USER_ID</ColNames>
+    <foreign-key id="258" parent="233" name="FKbbd0n10ny9jqofrpukenruw9y">
+      <ColNames>USER_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>USER_ID</RefColNames>
     </foreign-key>
-    <column id="258" parent="234" name="RECIPE_RECIPE_ID">
+    <column id="259" parent="234" name="RECIPE_RECIPE_ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="234" name="ingredients_INGREDIENT_ID">
+    <column id="260" parent="234" name="ingredients_INGREDIENT_ID">
       <Position>2</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="260" parent="234" name="FKfy6lp2pavq7ddkgcxfgn94nyv">
+    <index id="261" parent="234" name="FKaibn74321s0m9f5kiiq7c4cet">
+      <ColNames>RECIPE_RECIPE_ID</ColNames>
+    </index>
+    <index id="262" parent="234" name="FKfy6lp2pavq7ddkgcxfgn94nyv">
       <ColNames>ingredients_INGREDIENT_ID</ColNames>
     </index>
-    <key id="261" parent="234" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>RECIPE_RECIPE_ID
-ingredients_INGREDIENT_ID</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="262" parent="234" name="FKaibn74321s0m9f5kiiq7c4cet">
+    <foreign-key id="263" parent="234" name="FKaibn74321s0m9f5kiiq7c4cet">
       <ColNames>RECIPE_RECIPE_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>recipe</RefTableName>
       <RefColNames>RECIPE_ID</RefColNames>
     </foreign-key>
-    <foreign-key id="263" parent="234" name="FKfy6lp2pavq7ddkgcxfgn94nyv">
+    <foreign-key id="264" parent="234" name="FKfy6lp2pavq7ddkgcxfgn94nyv">
       <ColNames>ingredients_INGREDIENT_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>ingredient</RefTableName>
       <RefColNames>INGREDIENT_ID</RefColNames>
     </foreign-key>
-    <column id="264" parent="235" name="RECIPE_RECIPE_ID">
+    <column id="265" parent="235" name="RECIPE_RECIPE_ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="235" name="PREPARATION_STEP_DESCRIPTION">
+    <column id="266" parent="235" name="PREPARATION_STEP_DESCRIPTION">
       <Position>2</Position>
       <DataType>longtext|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="235" name="PREPARATION_STEP_ID">
+    <column id="267" parent="235" name="PREPARATION_STEP_ID">
       <Position>3</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="267" parent="235" name="FKsq2gk0gr23xwijx2qwf0po317">
+    <index id="268" parent="235" name="FKsq2gk0gr23xwijx2qwf0po317">
       <ColNames>RECIPE_RECIPE_ID</ColNames>
     </index>
-    <key id="268" parent="235" name="PRIMARY">
+    <key id="269" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>PREPARATION_STEP_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="269" parent="235" name="FKsq2gk0gr23xwijx2qwf0po317">
+    <foreign-key id="270" parent="235" name="FKsq2gk0gr23xwijx2qwf0po317">
       <ColNames>RECIPE_RECIPE_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>recipe</RefTableName>
       <RefColNames>RECIPE_ID</RefColNames>
     </foreign-key>
-    <column id="270" parent="236" name="USER_ID">
+    <column id="271" parent="236" name="ROLE_ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="271" parent="236" name="USER_EMAIL">
+    <column id="272" parent="236" name="ROLE">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="236" name="USER_PASSWORD">
-      <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="273" parent="236" name="USER_REGISTRATION_DATE">
-      <Position>4</Position>
-      <DataType>date|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="274" parent="236" name="USER_USERNAME">
-      <Position>5</Position>
-      <DataType>varchar(255)|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="275" parent="236" name="PRIMARY">
+    <index id="273" parent="236" name="UK_rusb6yiadi1ogiqb3bmtk76x2">
+      <ColNames>ROLE</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="274" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>USER_ID</ColNames>
+      <ColNames>ROLE_ID</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="275" parent="236" name="UK_rusb6yiadi1ogiqb3bmtk76x2">
+      <ColNames>ROLE</ColNames>
+      <UnderlyingIndexName>UK_rusb6yiadi1ogiqb3bmtk76x2</UnderlyingIndexName>
     </key>
     <column id="276" parent="237" name="USER_ID">
       <Position>1</Position>
@@ -1138,34 +1133,74 @@ ingredients_INGREDIENT_ID</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="237" name="RECIPE_ID">
+    <column id="277" parent="237" name="USER_EMAIL">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="278" parent="237" name="USER_PASSWORD">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="279" parent="237" name="USER_USERNAME">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="280" parent="237" name="UK_mp4s4dwn90qh0vqq4rejdp0q7">
+      <ColNames>USER_EMAIL</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="281" parent="237" name="UK_spd0ux69fgpbjmts8eklessrt">
+      <ColNames>USER_USERNAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="282" parent="237" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>USER_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="283" parent="237" name="UK_mp4s4dwn90qh0vqq4rejdp0q7">
+      <ColNames>USER_EMAIL</ColNames>
+      <UnderlyingIndexName>UK_mp4s4dwn90qh0vqq4rejdp0q7</UnderlyingIndexName>
+    </key>
+    <key id="284" parent="237" name="UK_spd0ux69fgpbjmts8eklessrt">
+      <ColNames>USER_USERNAME</ColNames>
+      <UnderlyingIndexName>UK_spd0ux69fgpbjmts8eklessrt</UnderlyingIndexName>
+    </key>
+    <column id="285" parent="238" name="USER_ID">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="286" parent="238" name="ROLE_ID">
       <Position>2</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="278" parent="237" name="UK_7phpxghtn0fbigox9cnevrpx">
-      <ColNames>RECIPE_ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="279" parent="237" name="FKfrma9cj6cjpkmljfo1i835ppk">
+    <index id="287" parent="238" name="FK6q10utt3pajoqokhwirt6gdjf">
       <ColNames>USER_ID</ColNames>
     </index>
-    <key id="280" parent="237" name="UK_7phpxghtn0fbigox9cnevrpx">
-      <ColNames>RECIPE_ID</ColNames>
-      <UnderlyingIndexName>UK_7phpxghtn0fbigox9cnevrpx</UnderlyingIndexName>
-    </key>
-    <foreign-key id="281" parent="237" name="FKfrma9cj6cjpkmljfo1i835ppk">
+    <index id="288" parent="238" name="FK8o3d83fyfguu76jrr0yvx9glm">
+      <ColNames>ROLE_ID</ColNames>
+    </index>
+    <foreign-key id="289" parent="238" name="FK6q10utt3pajoqokhwirt6gdjf">
       <ColNames>USER_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>USER_ID</RefColNames>
     </foreign-key>
-    <foreign-key id="282" parent="237" name="FK5ujtmcdq5g4xculdsv5x73u6o">
-      <ColNames>RECIPE_ID</ColNames>
+    <foreign-key id="290" parent="238" name="FK8o3d83fyfguu76jrr0yvx9glm">
+      <ColNames>ROLE_ID</ColNames>
       <RefSchemaName>demo</RefSchemaName>
-      <RefTableName>recipe</RefTableName>
-      <RefColNames>RECIPE_ID</RefColNames>
+      <RefTableName>role</RefTableName>
+      <RefColNames>ROLE_ID</RefColNames>
     </foreign-key>
   </database-model>
 </dataSource>

@@ -3,24 +3,26 @@ package ruszkowski89.springmvc.model;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Component
 @Entity(name = "INGREDIENT")
 public class Ingredient {
-
-    @Column(name = "INGREDIENT_ID")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "INGREDIENT_ID")
     private long id;
 
+    @NotNull
     @Column(name = "INGREDIENT_NAME")
     private String name;
 
     @Column(name = "INGREDIENT_QUANTITY")
     private Quantity quantity;
 
-    @Column(name = "INGREDIENT_DESCRIPTION")
     @Lob
+    @Column(name = "INGREDIENT_DESCRIPTION")
     private String description;
 
     @ManyToMany

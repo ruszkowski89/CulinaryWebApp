@@ -1,82 +1,73 @@
 package ruszkowski89.springmvc.service;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ruszkowski89.springmvc.model.Ingredient;
-import ruszkowski89.springmvc.model.PreparationStep;
 import ruszkowski89.springmvc.model.Recipe;
 import ruszkowski89.springmvc.model.User;
 import ruszkowski89.springmvc.repository.RecipeRepository;
+import ruszkowski89.springmvc.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Service("RecipeService")
 public class RecipeServiceImpl implements RecipeService {
+    private final RecipeRepository recipeRepository;
+
+    private final UserService userService;
 
     @Autowired
-    private RecipeRepository recipeRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private IngredientService ingredientService;
+    public RecipeServiceImpl(RecipeRepository recipeRepository, UserService userService) {
+        this.recipeRepository = recipeRepository;
+        this.userService = userService;
+    }
 
-
-    @Override
-    public List<Recipe> getAllRecipes() {
-        List<Recipe> recipeList = new ArrayList<Recipe>();
-        for (Recipe recipe: recipeRepository.findAll())
-            recipeList.add(recipe);
-
-        return recipeList;
+    public void save(Recipe recipe) {
+        recipeRepository.save(recipe);
     }
 
     @Override
-    public Recipe getRecipeById(long id) {
+    public List<Recipe> getAll() {
+        return Lists.newArrayList(recipeRepository.findAll());
+    }
+
+    @Override
+    public Recipe get(long id) {
         return recipeRepository.findById(id);
     }
 
     @Override
-    public List<Recipe> findRecipesByName(String name) {
-        List<Recipe> recipeList = new ArrayList<Recipe>();
-        for(Recipe recipe: recipeRepository.findAllByName(name))
-            recipeList.add(recipe);
-
-        return recipeList;
-    }
-
-    @Override
-    public void updateRecipe(Recipe recipe) {
-        recipeRepository.save(recipe);
-    }
-
-    @Override
-    public void deleteRecipe(long id) {
-        // to delete recipe from user object
-        User user = recipeRepository.findById(id).getUser();
-        for (Recipe recipe: user.getRecipesList()) {
-            if (recipe.getId() == id)
-                user.getRecipesList().remove(recipe);
-        }
-        userService.updateUser(user);
-
-        // to delete recipe from recipe database
+    public void delete(long id) {
         recipeRepository.deleteById(id);
     }
 
-    // TODO: refactory adding RecipeOwner(user), maybe through session object ?
-    @Override
-    public void addRecipe(User user, Recipe recipe) {
-        recipeRepository.save(recipe);
-        userService.getUserById(user.getId()).getRecipesList().add(recipe);
+    public List<Ingredient> getIngredients(Recipe recipe){
+        return recipe.getIngredients();
     }
 
+    // TODO: find a clean way to write addIngredient and deleteIngredient methods
     @Override
     public void addIngredientToRecipe(Recipe recipe, Ingredient ingredient) {
-        recipeRepository.findById(recipe.getId()).getIngredients().add(ingredient);
+        List<Ingredient> ingredientList = getIngredients(recipe);
+        ingredientList.add(ingredient);
+        recipe.setIngredients(ingredientList);
+        recipeRepository.save(recipe);
     }
 
+    @Override
+    public void deleteIngredientFromRecipe(Ingredient ingredient, Recipe recipe) {
+        List<Ingredient> ingredientList = getIngredients(recipe);
+        ingredientList.remove(ingredient);
+        recipe.setIngredients(ingredientList);
+        recipeRepository.save(recipe);
+    }
 
+    @Override
+    public User getAuthor(Recipe recipe) {
+        return recipe.getUser();
+    }
 }

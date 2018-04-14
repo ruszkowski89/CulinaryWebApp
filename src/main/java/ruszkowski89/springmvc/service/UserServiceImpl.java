@@ -1,80 +1,109 @@
 package ruszkowski89.springmvc.service;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import ruszkowski89.springmvc.model.Recipe;
+import ruszkowski89.springmvc.model.Role;
 import ruszkowski89.springmvc.model.User;
 import ruszkowski89.springmvc.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service("UserService")
 public class UserServiceImpl implements UserService {
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RecipeService recipeService;
-
-    @Override
-    public boolean verifyPassword(String userName, String password) {
-        try {
-            return (userRepository.findByUserName(userName).getPassword().equals(password));
-        } catch (Exception e){
-            return false;
-        }
-    }
-
-    // checks if username or email aren't taken/null/empty && checks if password isn't null/empty
-    @Override
-    public boolean verifyUserDetailsBeforeRegistration(String userName, String email, String password) {
-        if (userRepository.existsByUserName(userName) || StringUtils.isEmpty(userName) ||
-            userRepository.existsByEmail(email) || StringUtils.isEmpty(userName) ||
-            StringUtils.isEmpty(password))
-            return false;
-
-        return true;
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public List<User> getAllUsers() {
-        List<User> list = new ArrayList<User>();
-        for (User user: userRepository.findAll())
-            list.add(user);
-
-        return list;
+    public List<User> getAll() {
+        return Lists.newArrayList(userRepository.findAll());
     }
 
     @Override
-    public User getUserById(long id) {
+    public User get(long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public User getUserByUserName(String userName) {
+    public User get(String userName) {
         return userRepository.findByUserName(userName);
     }
 
     @Override
-    public boolean addUser(User user) {
-        if (!verifyUserDetailsBeforeRegistration(user.getUserName(), user.getEmail(), user.getPassword()))
-            return false;
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
+    @Override
+    public void deleteRecipeFromProfile(User user, Recipe recipe) {
+        user.getRecipesList().remove(recipe);
+    }
+
+    @Override
+    public boolean save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         userRepository.save(user);
         return true;
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         userRepository.save(user);
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void delete(long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getCurrentlyLoggedUser() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userName){
+        User user = userRepository.findByUserName(userName);
+        if (user == null)
+            throw new UsernameNotFoundException("Invalid username or password.");
+        return new org.springframework.security.core.userdetails.User(
+            user.getUserName(),
+            user.getPassword(),
+            true,
+            true,
+            true,
+            true,
+            mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+        return roles.stream()
+            .map(role -> new SimpleGrantedAuthority(role.getName()))
+            .collect(Collectors.toList());
     }
 
 }

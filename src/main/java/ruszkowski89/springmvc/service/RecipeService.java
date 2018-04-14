@@ -8,12 +8,13 @@ import ruszkowski89.springmvc.model.User;
 import java.util.List;
 
 public interface RecipeService {
-    List<Recipe> getAllRecipes();
-    Recipe getRecipeById(long id);
-    List<Recipe> findRecipesByName(String name);
-    void updateRecipe(Recipe recipe);
-    void deleteRecipe(long id);
-    void addRecipe(User user, Recipe recipe);
+    List<Recipe> getAll();
+    Recipe get(long id);
+    void deleteIngredientFromRecipe(Ingredient ingredient, Recipe recipe);
+    void save(Recipe recipe);
     void addIngredientToRecipe(Recipe recipe, Ingredient ingredient);
+    User getAuthor(Recipe recipe);
+    void delete(long id);
+    List<Ingredient> getIngredients(Recipe recipe);
 
 }

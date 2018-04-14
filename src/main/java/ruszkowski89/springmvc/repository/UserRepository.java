@@ -7,9 +7,9 @@ import ruszkowski89.springmvc.model.Recipe;
 import ruszkowski89.springmvc.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long>{
-
     User findByUserName (String userName);
     User findById (long id);
+    User findByEmail (String email);
     boolean existsByUserName (String userName);
     boolean existsByEmail (String email);
 

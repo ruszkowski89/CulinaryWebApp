@@ -2,10 +2,8 @@ package ruszkowski89.springmvc.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -17,6 +15,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ruszkowski89.springmvc.model.User;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -26,7 +25,6 @@ import java.util.Properties;
 @PropertySource("classpath:db.properties")
 @EnableJpaRepositories("ruszkowski89.springmvc.repository")
 public class JpaConfig {
-
     @Autowired
     private Environment environment;
 
@@ -71,4 +69,5 @@ public class JpaConfig {
         transactionManager.setEntityManagerFactory(getEntityManagerFactoryBean().getObject());
         return transactionManager;
     }
+
 }

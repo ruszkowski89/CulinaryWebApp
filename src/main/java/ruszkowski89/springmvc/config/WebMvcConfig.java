@@ -12,6 +12,7 @@ import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+import ruszkowski89.springmvc.model.User;
 
 
 @Import({JpaConfig.class})
@@ -19,7 +20,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableWebMvc
 @ComponentScan("ruszkowski89.springmvc")
 public class WebMvcConfig extends WebMvcConfigurationSupport implements ApplicationContextAware{
-
     private ApplicationContext applicationContext;
 
     public WebMvcConfig(){
@@ -43,7 +43,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements Applicat
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setApplicationContext(applicationContext);
         resolver.setTemplateMode(TemplateMode.HTML);
-        resolver.setPrefix("/WEB-INF/templates/");
+        resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".html");
         return resolver;
     }
