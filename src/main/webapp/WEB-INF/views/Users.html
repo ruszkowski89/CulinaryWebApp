@@ -2,70 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head lang="en">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
 
-<body>
 
+<body>
 <div id="container">
 
-  <div id="logoAndAccount">
-    <div id="account" th:if="${#httpServletRequest.remoteUser != null}">
-      <p onclick="location.href='Profile'" th:text="${'Logged as: ' + #httpServletRequest.remoteUser}">UserProfile</p>
-      <p>
-      <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Log out" />
-      </form>
-      </p>
+    <div id="logoAndAccount" th:insert="fragments/logoAndAccount :: logoAndAccount" />
+    <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
+
+    <div id="content">
+        <span class="bigtitle" th:text="#{Users.title}"> List of registered users:  </span>
+        <div class="dottedline"></div>
+        <table>
+            <tr>
+                <th th:text="#{Commons.username}">  UserName</th>
+                <th th:text="#{Commons.email}">  Email</th>
+                <th th:text="#{Users.joined}">  Joined</th>
+                <th th:text="#{Users.viewProfile}">  View Profile</th>
+            </tr>
+
+            <tr th:each="user: ${userList}" >
+                <td th:text="${user.userName}">username</td>
+                <td th:text="${user.email}">email</td>
+                <td th:text="${{user.registrationDate}}">date</td>
+                <td><a th:href="@{'/app/users/'+${user.id}}" th:text="#{Commons.view}">view</a></td>
+            </tr>
+        </table>
     </div>
 
-    <div id="logo">StupidCulinaryWebApp</div>
-  </div>
-
-  <div id="menu">
-    <a th:href="@{/app/}"> <div class="option" > Home </div> </a>
-    <a th:href="@{/app/recipes}"> <div class="option" > Recipes </div> </a>
-    <a th:href="@{/app/ingredients}"> <div class="option" > Ingredients </div> </a>
-    <a th:href="@{/app/users}"> <div class="option" > Users </div> </a>
-    <a th:href="@{/app/recipes/addRecipe}"> <div class="option" > Add recipe </div> </a>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div id="sidebar">
-    <a th:href="@{/app/}"> <div class="optionL" > Home </div> </a>
-    <a th:href="@{/app/recipes}"> <div class="optionL" > Recipes </div> </a>
-    <a th:href="@{/app/ingredients}"> <div class="optionL" > Ingredients </div> </a>
-    <a th:href="@{/app/users}"> <div class="optionL" > Users </div> </a>
-    <a th:href="@{/app/recipes/addRecipe}"> <div class="optionL" > Add recipe </div> </a>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div id="content">
-    <span class="bigtitle"> Users:  </span>
-    <div class="dottedline"></div>
-    <table>
-      <tr>
-        <th>-- UserName --</th>
-        <th>-- Email --</th>
-        <th>-- View Profile --</th>
-
-      </tr>
-      <tr th:each="user: ${userList}" >
-        <td th:text="${user.userName}">username</td>
-        <td th:text="${user.email}">email</td>
-        <td><a th:href="@{'/app/Users/'+${user.id}}">view</a></td>
-
-      </tr>
-    </table>
-  </div>
-  </div>
-
-  <div id="footer">
-     &copy; All rights reserved
-  </div>
+    <div id="footer" th:insert="fragments/footer :: footer" />
 
 </div>
-
 </body>

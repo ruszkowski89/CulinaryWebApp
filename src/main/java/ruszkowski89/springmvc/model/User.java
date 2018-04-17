@@ -34,6 +34,9 @@ public class User {
     @Column(name = "USER_EMAIL", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "REGISTRATION_DATE")
+    private Date registrationDate;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
                name = "USERS_ROLES",
@@ -47,6 +50,14 @@ public class User {
     private List<Recipe> recipesList = new ArrayList<Recipe>();
 
     public User() {
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public Collection<Role> getRoles() {

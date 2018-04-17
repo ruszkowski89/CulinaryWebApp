@@ -9,12 +9,21 @@
 
 <body>
 
-<p>You dont have access to see this page</p>
+    <div id="container">
 
-  <div id="footer">
-     &copy; All rights reserved
-  </div>
+        <div id="logoAndAccount" th:insert="fragments/logoAndAccount :: logoAndAccount" />
+        <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
 
-</div>
+        <div id="content">
+            <span class="bigtitle"> 403  </span>
+            <div class="dottedline"></div>
+
+            Something is wrong man...
+
+        </div>
+
+        <div id="footer" th:insert="fragments/footer :: footer" />
+
+    </div>
 
 </body>

@@ -4,6 +4,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.TemplateEngine;
@@ -70,4 +72,14 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements Applicat
         registry.addResourceHandler("/css/**").addResourceLocations("/css/**");
     }
 
+    @Override
+    public void addFormatters(final FormatterRegistry registry){
+        super.addFormatters(registry);
+        registry.addFormatter(dateFormatter());
+    }
+
+    @Bean
+    public DateFormatter dateFormatter(){
+        return new DateFormatter();
+    }
 }

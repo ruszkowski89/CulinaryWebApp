@@ -10,6 +10,7 @@ import ruszkowski89.springmvc.model.User;
 import ruszkowski89.springmvc.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Calendar;
 
 @Transactional
 @RestController
@@ -28,27 +29,28 @@ public class UserAccountController {
     }
 
     @GetMapping(value = {"/register/", "/register"})
-    public ModelAndView viewRegisterPage(ModelAndView mav){
+    public ModelAndView showRegister(ModelAndView mav){
         mav.setViewName("Register");
         return mav;
     }
 
     @GetMapping(value = {"/login/", "/login"})
-    public ModelAndView viewLoginPage(ModelAndView mav){
+    public ModelAndView showLogin(ModelAndView mav){
         mav.setViewName("Login");
         return mav;
     }
 
     @PostMapping(value = {"/processRegister/", "/processRegister"})
     @ResponseStatus(HttpStatus.CREATED)
-    public ModelAndView validateUserRegistrationForm(@ModelAttribute("user") @Valid User user,
-                                                     BindingResult result,
-                                                     ModelAndView mav){
+    public ModelAndView saveRegistration(@ModelAttribute("user") @Valid User user,
+                                         BindingResult result,
+                                         ModelAndView mav){
 
         if (result.hasErrors()){
             mav.setViewName("Register");
         }
         else {
+            user.setRegistrationDate(Calendar.getInstance().getTime());
             userService.save(user);
             mav.setViewName("Login");
         }

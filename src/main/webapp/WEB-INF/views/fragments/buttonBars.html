@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+    <div id="buttonBars" th:fragment="buttonBars">
+
+        <div id="menu">
+            <a th:href="@{/app/}"> <div class="option" > Home </div> </a>
+            <a th:href="@{/app/recipes}"> <div class="option" > Recipes </div> </a>
+            <a th:href="@{/app/ingredients}"> <div class="option" > Ingredients </div> </a>
+            <a th:href="@{/app/users}"> <div class="option" > Users </div> </a>
+            <a th:href="@{/app/recipes/addRecipe}"> <div class="option" > Add recipe </div> </a>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div id="sidebar">
+            <a th:href="@{/app/}"> <div class="optionL" > Home </div> </a>
+            <a th:href="@{/app/recipes}"> <div class="optionL" > Recipes </div> </a>
+            <a th:href="@{/app/ingredients}"> <div class="optionL" > Ingredients </div> </a>
+            <a th:href="@{/app/users}"> <div class="optionL" > Users </div> </a>
+            <a th:href="@{/app/recipes/addRecipe}"> <div class="optionL" > Add recipe </div> </a>
+            <div style="clear: both;"></div>
+        </div>
+
+    </div>
+</body>

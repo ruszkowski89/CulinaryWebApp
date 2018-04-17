@@ -7,12 +7,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Role {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ROLE_ID", nullable = false, unique = true)
-    private Long id;
+    @Column(name = "ROLE_ID", nullable = false)
+    private long id;
 
-    @Column(name = "ROLE", nullable = false, unique = true)
+    @Column(name = "ROLE", nullable = false)
     private String name;
 
     public Role(){}

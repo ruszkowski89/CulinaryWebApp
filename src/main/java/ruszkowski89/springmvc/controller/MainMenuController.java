@@ -18,12 +18,12 @@ class MainMenuController {
     }
 
     @GetMapping(value = {"/"})
-    public ModelAndView homePage(){
-        return new ModelAndView("HomePage");
+    public ModelAndView showHome(){
+        return new ModelAndView("Home");
     }
 
     @GetMapping(value = {"/users/", "/users"})
-    public ModelAndView usersPage(){
+    public ModelAndView showUsers(){
         return new ModelAndView(
                                 "Users",
                                 "userList",
@@ -31,7 +31,7 @@ class MainMenuController {
     }
 
     @GetMapping(value = {"/users/{id}/", "/users/{id}"})
-    public ModelAndView singleUserPage(@PathVariable("id") Long id){
+    public ModelAndView showSingleUser(@PathVariable("id") Long id){
         return new ModelAndView(
                                 "User",
                                 "userToDisplay",
@@ -39,7 +39,7 @@ class MainMenuController {
     }
 
     @GetMapping(value = {"/profile/", "/profile"})
-    public ModelAndView profilePage(){
+    public ModelAndView showLoggedUser(){
         return new ModelAndView(
                                 "Profile",
                                 "user",

@@ -9,7 +9,7 @@
 
 
 
-    <title>Registration</title>
+    <title th:text="#{Register.registration}">Registration</title>
 </head>
 
 <body style="background-color: cornflowerblue">
@@ -17,32 +17,53 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <h1>Registration</h1>
+            <h1 th:text="#{Register.registration}">Registration</h1>
             <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
             <form th:action="@{/app/processRegister}" th:object="${user}" method="post">
 
                 <table>
                     <tr>
-                        <td>UserName: </td>
+                        <td th:text="#{Commons.username}">UserName: </td>
                         <td><input type="text" th:field="*{userName}" /></td>
-                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                        <td th:if="${#fields.hasErrors('userName')}"
+                            th:errors="*{userName}"
+                            th:text="#{Register.nameError}">
+                            Name Error
+                        </td>
                     </tr>
                     <tr>
-                        <td>Email: </td>
+                        <td th:text="#{Commons.email}">Email: </td>
                         <td><input type="text" th:field="*{email}" /></td>
-                        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                        <td th:if="${#fields.hasErrors('email')}"
+                            th:errors="*{email}"
+                            th:text="#{Register.emailError}">
+                            Email Error
+                        </td>
                     </tr>
                     <tr>
-                        <td>Password: </td>
+                        <td th:text="#{Commons.password}">Password: </td>
                         <td><input type="password" th:field="*{password}" /></td>
-                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                        <td th:if="${#fields.hasErrors('password')}"
+                            th:errors="*{password}"
+                            th:text="#{Register.passwordError}">
+                            Password Error
+                        </td>
                     </tr>
                 </table>
 
-
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Register</button>
-                    <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
+                    <button type="submit"
+                            class="btn btn-success"
+                            th:text="#{Register.register}">
+                        Register
+                    </button>
+
+                    <span th:text="#{Register.alreadyRegistered}">
+                        Already registered?
+                        <a href="/" th:href="@{/login}" th:text="#{Register.loginHere}">
+                            Login here
+                        </a>
+                    </span>
                 </div>
 
             </form>

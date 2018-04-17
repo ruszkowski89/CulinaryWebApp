@@ -18,8 +18,11 @@ public class Ingredient {
     @Column(name = "INGREDIENT_NAME")
     private String name;
 
-    @Column(name = "INGREDIENT_QUANTITY")
-    private Quantity quantity;
+    @Column(name = "INGREDIENT_UNITS")
+    private Unit unit;
+
+    @Column(name = "AMOUNT")
+    private double amount;
 
     @Lob
     @Column(name = "INGREDIENT_DESCRIPTION")
@@ -47,6 +50,14 @@ public class Ingredient {
         this.id = id;
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,12 +66,12 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Quantity getQuantity() {
-        return quantity;
+    public Unit getUnit() {
+        return unit;
     }
 
-    public void setQuantity(Quantity quantity) {
-        this.quantity = quantity;
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public String getDescription() {

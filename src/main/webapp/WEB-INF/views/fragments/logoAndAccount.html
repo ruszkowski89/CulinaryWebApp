@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+    <div id="logoAndAccount" th:fragment="logoAndAccount">
+        <div id="account" th:if="${#httpServletRequest.remoteUser != null}">
+            <p> <a href="#" th:href="@{/app/profile}" th:text="${'Logged as: ' + #httpServletRequest.remoteUser}">UserProfile</p>
+            <p>
+            <form th:action="@{/app/logout}" method="post">
+                <input type="submit" value="Log out" />
+            </form>
+            </p>
+        </div>
+
+        <div id="logo">StupidCulinaryWebApp</div>
+    </div>
+</body>

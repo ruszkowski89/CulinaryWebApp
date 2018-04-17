@@ -30,6 +30,9 @@ public class Recipe {
     @Column(name = "RECIPE_DESCRIPTION")
     private String description;
 
+    @Column(name = "DATE")
+    private Date date;
+
     @GenericGenerator(name = "increment-gen", strategy = "increment")
     @CollectionId(columns = {@Column(name = "PREPARATION_STEP_ID")},
                   generator = "increment-gen", type = @Type(type = "long"))
@@ -58,6 +61,14 @@ public class Recipe {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public long getId() {

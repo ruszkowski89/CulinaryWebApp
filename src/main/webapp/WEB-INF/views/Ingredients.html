@@ -8,55 +8,41 @@
 
 
 <body>
-
 <div id="container">
 
-  <div id="logoAndAccount">
-    <div id="account" th:if="${#httpServletRequest.remoteUser != null}">
-      <p onclick="location.href='Profile'" th:text="${'Logged as: ' + #httpServletRequest.remoteUser}">UserProfile</p>
-      <p>
-      <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Log out" />
-      </form>
-      </p>
+    <div id="logoAndAccount" th:insert="fragments/logoAndAccount :: logoAndAccount" />
+    <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
+
+    <div id="content">
+
+        <span class="bigtitle" th:text="#{Ingredients.title}"> Ingredients:  </span>
+
+            <button type="submit"
+                    class="btn btn-success"
+                    onclick="location.href='/app/ingredients/add'"
+                    th:text="#{Ingredients.add}">
+                Add ingredient
+            </button>
+
+        <div class="dottedline"></div>
+
+        <table>
+            <tr>
+                <th th:text="#{Commons.name}">  Name:</th>
+                <th th:text="#{Commons.link}">  Link:</th>
+            </tr>
+            <tr th:each="ingredient : ${ingredientList}">
+                <td th:text="${ingredient.name}"></td>
+                <td>
+                    <a href="#" th:href="@{'/app/ingredients/' + ${ingredient.id}}"
+                       th:text="#{Commons.view}"> view </a>
+                </td>
+            </tr>
+        </table>
+
     </div>
 
-    <div id="logo">StupidCulinaryWebApp</div>
-  </div>
-
-    <div id="menu">
-        <a th:href="@{/app/}"> <div class="option" > Home </div> </a>
-        <a th:href="@{/app/recipes}"> <div class="option" > Recipes </div> </a>
-        <a th:href="@{/app/ingredients}"> <div class="option" > Ingredients </div> </a>
-        <a th:href="@{/app/users}"> <div class="option" > Users </div> </a>
-        <a th:href="@{/app/recipes/addRecipe}"> <div class="option" > Add recipe </div> </a>
-        <div style="clear: both;"></div>
-    </div>
-
-    <div id="sidebar">
-        <a th:href="@{/app/}"> <div class="optionL" > Home </div> </a>
-        <a th:href="@{/app/recipes}"> <div class="optionL" > Recipes </div> </a>
-        <a th:href="@{/app/ingredients}"> <div class="optionL" > Ingredients </div> </a>
-        <a th:href="@{/app/users}"> <div class="optionL" > Users </div> </a>
-        <a th:href="@{/app/recipes/addRecipe}"> <div class="optionL" > Add recipe </div> </a>
-        <div style="clear: both;"></div>
-    </div>
-
-  <div id="content">
-    <span class="bigtitle"> Ingredients  </span>
-      <button type="submit" class="btn btn-success" onclick="location.href='/app/ingredients/add'">Add ingredient</button>
-    <div class="dottedline"></div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rhoncus suscipit posuere. Duis rhoncus eros ligula, sit amet dictum mi mattis id. Pellentesque a neque vitae ex semper mollis. Cras commodo hendrerit fermentum. Donec aliquam neque vestibulum ex fringilla, id hendrerit mauris auctor. Cras accumsan, eros id maximus aliquet, magna augue porttitor arcu, nec tempor turpis odio at sem. Donec eu justo vulputate, hendrerit sem vitae, faucibus diam. Aliquam sed placerat dolor. Nullam non facilisis quam, eget pulvinar nulla. Morbi nec sodales nisi, ac faucibus velit. Sed sit amet mauris mi. Etiam venenatis nisl nec dictum volutpat. Quisque purus orci, rhoncus sit amet feugiat a, varius vitae mi. Etiam mauris metus, sagittis vel neque euismod, vulputate facilisis tellus.
-    <br /><br />
-    Donec id sem massa. Praesent eget dictum enim. Ut a justo erat. Aliquam ut venenatis augue, id suscipit eros. Suspendisse consequat magna ac ex fermentum porttitor. Nunc porttitor, orci a pellentesque vulputate, erat tellus condimentum lectus, ut pellentesque orci ante ut neque. Cras ac est ut erat convallis vestibulum. Donec pretium erat nec mi blandit, sed consectetur turpis lobortis. Cras in lacus non neque vulputate fermentum quis sit amet metus. Etiam egestas semper justo sed dapibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dolor neque, semper a augue nec, ultrices vulputate urna.
-    <br /><br />
-    Nunc laoreet tempor mauris, vitae hendrerit arcu varius eget. Suspendisse sodales accumsan sapien, sit amet imperdiet dolor commodo vel. Sed condimentum nulla a arcu pharetra tempor. Aliquam erat volutpat. Proin accumsan maximus elit, ac fringilla urna pretium sit amet. Nulla ac feugiat augue. Nunc vulputate placerat magna, quis vulputate tortor pulvinar et. Quisque ut est faucibus, hendrerit nisi non, laoreet orci. Aenean ac convallis massa, sed aliquam elit.
-  </div>
-
-  <div id="footer">
-     &copy; All rights reserved
-  </div>
+    <div id="footer" th:insert="fragments/footer :: footer" />
 
 </div>
-
 </body>

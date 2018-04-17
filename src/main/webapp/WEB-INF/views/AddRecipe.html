@@ -7,100 +7,88 @@
 </head>
 
 
-<body>
 
+<body>
 <div id="container">
 
-  <div id="logoAndAccount">
-    <div id="account" th:if="${#httpServletRequest.remoteUser != null}">
-      <p onclick="location.href='Profile'" th:text="${'Logged as: ' + #httpServletRequest.remoteUser}">UserProfile</p>
-      <p>
-      <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Log out" />
-      </form>
-      </p>
+    <div id="logoAndAccount" th:insert="fragments/logoAndAccount :: logoAndAccount" />
+    <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
+
+    <div id="content">
+        <span class="bigtitle" th:text="#{AddRecipe.title}"> Add recipe:  </span>
+        <div class="dottedline"></div>
+
+        <!--/*@thymesVar id="recipe" type="ruszkowski89.springmvc.model.Recipe"*/-->
+        <!--/*@thymesVar id="ingredient" type="ruszkowski89.springmvc.model.Ingredient"*/-->
+
+        <form action="#" method="post" th:action="@{/app/recipes/addRecipe/}" th:object="${recipe}">
+            <p th:utext="#{AddRecipe.start}"></p>
+
+            <div>
+                <td th:text="#{AddRecipe.recipeName}">Recipe name:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+            </div>
+
+            <div>
+                <td th:text="#{AddRecipe.preparationTime}">Preparation time in minutes:</td>
+                <td><input type="number" th:field="*{timeInMinutes}" /></td>
+            </div>
+
+            <div>
+                <td th:text="#{Commons.description}">Description:</td>
+                <td><textarea type="text" th:field="*{description}"></textarea></td>
+            </div>
+
+            <div>
+                <label th:text="#{AddRecipe.selectIngredients}">Select ingredients:</label>
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Unit</th>
+                            <th>Amount</th>
+                            <th>
+                                <button type="submit"
+                                        name="addIngredient"
+                                        th:text="#{AddIngredient.add}">Add Ingredient</button>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="ingredient,ingredientStat : *{ingredients}">
+                            <td th:text="${ingredientStat.count}">1</td>
+                            <td>
+                                <select th:field="*{ingredients[__${ingredientStat.index}__].name}">
+                                        <option th:each="ing : ${ingredientList}"
+                                                th:value="${ing.id}"
+                                                th:text="${ing.name}">Potato</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" th:field="*{ingredients[__${ingredientStat.index}__].amount}" />
+                            </td>
+                            <td>
+                                <button type="submit"
+                                        name="removeIngredient"
+                                        th:value="${ingredientStat.index}"
+                                        th:text="#{AddRecipe.removeIngredient}">Remove ingredient</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div>
+                <button type="submit" name="save">Add recipe</button>
+            </div>
+        </form>
+
     </div>
 
-    <div id="logo">StupidCulinaryWebApp</div>
-  </div>
-
-  <div id="menu">
-    <a th:href="@{/app/}"> <div class="option" > Home </div> </a>
-    <a th:href="@{/app/recipes}"> <div class="option" > Recipes </div> </a>
-    <a th:href="@{/app/ingredients}"> <div class="option" > Ingredients </div> </a>
-    <a th:href="@{/app/users}"> <div class="option" > Users </div> </a>
-    <a th:href="@{/app/recipes/addRecipe}"> <div class="option" > Add recipe </div> </a>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div id="sidebar">
-    <a th:href="@{/app/}"> <div class="optionL" > Home </div> </a>
-    <a th:href="@{/app/recipes}"> <div class="optionL" > Recipes </div> </a>
-    <a th:href="@{/app/ingredients}"> <div class="optionL" > Ingredients </div> </a>
-    <a th:href="@{/app/users}"> <div class="optionL" > Users </div> </a>
-    <a th:href="@{/app/recipes/addRecipe}"> <div class="optionL" > Add recipe </div> </a>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div id="content">
-    <span class="bigtitle"> Add recipe:  </span>
-    <div class="dottedline"></div>
-
-    <!--/*@thymesVar id="recipe" type="ruszkowski89.springmvc.model.Recipe"*/-->
-    <!--/*@thymesVar id="ingredient" type="ruszkowski89.springmvc.model.Ingredient"*/-->
-
-    <form action="#" method="post" th:action="@{/app/recipes/addRecipe/}" th:object="${recipe}">
-      <table>
-        <tr>
-          <div>
-            <p th:utext="#{AddRecipe.start}"></p>
-          </div>
-        </tr>
-        <tr>
-          <td>Recipe name:</td>
-          <td><input type="text" th:field="*{name}"/></td>
-        </tr>
-        <tr>
-          <td>Select ingredients:</td>
-          <td>
-            <select th:field="*{ingredients}" multiple="multiple">
-
-              <option th:each="ingredient : ${ingredientList}"
-                      th:value="${ingredient.name}"
-                      th:text="${ingredient.name}">
-
-              </option>
-
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td>Preparation time in minutes:</td>
-          <td><input type="number" th:field="*{timeInMinutes}" /></td>
-        </tr>
-
-        <tr>
-          <td>Description:</td>
-          <td><textarea type="text" th:field="*{description}"></textarea></td>
-        </tr>
-
-        <tr align="center">
-          <td colspan="2">
-            <input type="submit" value="Add"/>
-          </td>
-        </tr>
-      </table>
-    </form>
-
-  </div>
-
-  </div>
-
-  <div id="footer">
-     &copy; All rights reserved
-  </div>
+    <div id="footer" th:insert="fragments/footer :: footer" />
 
 </div>
-
 </body>
