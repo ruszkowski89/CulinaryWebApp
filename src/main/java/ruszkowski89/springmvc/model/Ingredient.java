@@ -1,8 +1,13 @@
 package ruszkowski89.springmvc.model;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -14,29 +19,23 @@ public class Ingredient {
     @Column(name = "INGREDIENT_ID")
     private long id;
 
-    @NotNull
+    @NotBlank
     @Column(name = "INGREDIENT_NAME")
     private String name;
-
-    @Column(name = "INGREDIENT_UNITS")
-    private Unit unit;
-
-    @Column(name = "AMOUNT")
-    private double amount;
 
     @Lob
     @Column(name = "INGREDIENT_DESCRIPTION")
     private String description;
 
-    @ManyToMany
-    private List<Recipe> recipeList;
+    @OneToMany
+    private List<IngredientDataRow> ingredientDataRows;
 
-    public List<Recipe> getRecipeList() {
-        return recipeList;
+    public List<IngredientDataRow> getIngredientDataRows() {
+        return ingredientDataRows;
     }
 
-    public void setRecipeList(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
+    public void setIngredientDataRows(List<IngredientDataRow> ingredientDataRows) {
+        this.ingredientDataRows = ingredientDataRows;
     }
 
     public Ingredient() {
@@ -50,28 +49,12 @@ public class Ingredient {
         this.id = id;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Unit unit) {
-        this.unit = unit;
     }
 
     public String getDescription() {

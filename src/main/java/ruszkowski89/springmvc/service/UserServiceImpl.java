@@ -52,11 +52,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
     public void deleteRecipeFromProfile(User user, Recipe recipe) {
         user.getRecipesList().remove(recipe);
     }
@@ -67,11 +62,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         userRepository.save(user);
         return true;
-    }
-
-    @Override
-    public void update(User user) {
-        userRepository.save(user);
     }
 
     @Override

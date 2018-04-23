@@ -6,6 +6,9 @@ import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Component
@@ -13,32 +16,29 @@ import java.util.*;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "RECIPE_ID")
+    @Column(name = "ID")
     private long id;
 
-    @Column(name = "RECIPE_NAME")
+    @NotBlank
+    @Column(name = "NAME")
     private String name;
 
-    @ManyToMany
-    @Column(name = "RECIPE_INGREDIENTS")
-    private List<Ingredient> ingredients = new ArrayList<>();
+    @NotEmpty
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(name = "INGREDIENT_DATA_ROW")
+    private List<IngredientDataRow> ingredientDataRows = new ArrayList<>();
 
-    @Column(name = "RECIPE_TIME")
+    @NotNull
+    @Column(name = "TIME")
     private int timeInMinutes;
 
+    @NotBlank
     @Lob
-    @Column(name = "RECIPE_DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @Column(name = "DATE")
     private Date date;
-
-    @GenericGenerator(name = "increment-gen", strategy = "increment")
-    @CollectionId(columns = {@Column(name = "PREPARATION_STEP_ID")},
-                  generator = "increment-gen", type = @Type(type = "long"))
-    @ElementCollection
-    @Column(name = "RECIPE_PREPARATION_STEPS")
-    private List<PreparationStep> preparationSteps = new ArrayList<PreparationStep>();
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -87,20 +87,12 @@ public class Recipe {
         this.timeInMinutes = timeInMinutes;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+    public List<IngredientDataRow> getIngredientDataRows() {
+        return ingredientDataRows;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<PreparationStep> getPreparationSteps() {
-        return preparationSteps;
-    }
-
-    public void setPreparationSteps(List<PreparationStep> preparationSteps) {
-        this.preparationSteps = preparationSteps;
+    public void setIngredients(List<IngredientDataRow> ingredientDataRows) {
+        this.ingredientDataRows = ingredientDataRows;
     }
 
     public String getDescription() {

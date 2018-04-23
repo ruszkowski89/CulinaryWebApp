@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head lang="en">
     <meta charset="utf-8"/>
@@ -17,13 +17,12 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <h1 th:text="#{Login.title}">Login</h1>
+            <h1>Login</h1>
             <!--/*@thymesVar id="user" type="ruszkowski89.springmvc.model.User"*/-->
-
             <form th:action="@{/app/login}" method="post">
 
                 <div th:if="${param.error}" class="alert alert-error" th:text="#{Login.loginError}">
-                    Invalid username and password.
+                    Invalid username or password.
                 </div>
                 <div th:if="${param.logout}" class="alert alert-success" th:text="#{Login.logout}">
                     You have been logged out.
@@ -41,14 +40,8 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Login</button>
-                    <span th:text="#{Login.dontHaveAccount}">
-
-                        Don't have account?
-
-                        <a href="/" th:href="@{/app/register}" th:text="#{Login.registerHere}">
-                            Register here
-                        </a>
-
+                    <span>Don't have account?
+                        <a href="/" th:href="@{/app/register}">Register here</a>
                     </span>
                 </div>
 
@@ -56,7 +49,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

@@ -53,17 +53,10 @@
 
                 <div class="form-group">
                     <button type="submit"
-                            class="btn btn-success"
-                            th:text="#{Register.register}">
+                            class="btn btn-success">
                         Register
                     </button>
-
-                    <span th:text="#{Register.alreadyRegistered}">
-                        Already registered?
-                        <a href="/" th:href="@{/login}" th:text="#{Register.loginHere}">
-                            Login here
-                        </a>
-                    </span>
+                    <span>Already registered? <a href="/" th:href="@{/app/login}">Login here</a></span>
                 </div>
 
             </form>

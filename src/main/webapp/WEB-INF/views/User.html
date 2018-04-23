@@ -14,10 +14,10 @@
     <div id="logoAndAccount" th:insert="fragments/logoAndAccount :: logoAndAccount" />
     <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
 
-    <div id="content">
-        <span class="bigtitle" th:text="#{User.title}"> User :  </span>
+    <div id="content" th:object="${userToDisplay}">
+        <span class="bigtitle" th:text="*{userToDisplay.name}"> User :  </span>
         <div class="dottedline"></div>
-        <table th:object="${userToDisplay}">
+        <table>
             <tr>
                 <th th:text="#{Commons.username}">-- UserName --</th>
                 <th th:text="#{Commons.email}">-- Email --</th>

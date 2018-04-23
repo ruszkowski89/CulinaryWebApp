@@ -14,7 +14,7 @@
     <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
 
     <div id="content" th:object="${ingredient}">
-        <span class="bigtitle" th:text="#{Ingredient.title}"> Ingredient:  </span>
+        <span class="bigtitle" th:text="*{ingredient.name}"> Ingredient:  </span>
         <div class="dottedline"></div>
 
         <p th:text="*{description}"></p>

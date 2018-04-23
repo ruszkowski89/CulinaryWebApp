@@ -2,15 +2,12 @@ package ruszkowski89.springmvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ruszkowski89.springmvc.model.Ingredient;
-import ruszkowski89.springmvc.model.Unit;
 import ruszkowski89.springmvc.service.IngredientService;
-
-import java.util.Arrays;
-import java.util.List;
 
 @RequestMapping(value = {"/ingredients/", "/ingredients"})
 @Transactional
@@ -23,11 +20,6 @@ class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @ModelAttribute("allQuantities")
-    public List<Unit> populateQuantities(){
-        return Arrays.asList(Unit.ALL);
-    }
-
     @ModelAttribute("ingredient")
     public Ingredient getNewIngredientObject(){
         return new Ingredient();
@@ -37,7 +29,7 @@ class IngredientController {
     public ModelAndView showIngredients(){
         return new ModelAndView(
                                 "Ingredients",
-                                "ingredientsList",
+                                "allIngredients",
                                 ingredientService.getAll());
     }
 
@@ -46,7 +38,7 @@ class IngredientController {
         return new ModelAndView("AddIngredient");
     }
 
-    @PostMapping(value = "/processAddIngredientForm")
+    @PostMapping(value = "/add")
     @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView saveIngredient(@ModelAttribute("ingredient")Ingredient ingredient){
         if(!ingredientService.isInDatabase(ingredient)){
@@ -58,7 +50,7 @@ class IngredientController {
     @GetMapping(value = "/{id}")
     public ModelAndView showSingleIngredient(@PathVariable("id")Long id){
         return new ModelAndView(
-                               "Ingredients",
+                               "Ingredient",
                                "ingredient",
                                ingredientService.get(id));
     }

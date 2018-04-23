@@ -21,58 +21,62 @@
         <!--/*@thymesVar id="recipe" type="ruszkowski89.springmvc.model.Recipe"*/-->
         <!--/*@thymesVar id="ingredient" type="ruszkowski89.springmvc.model.Ingredient"*/-->
 
-        <form action="#" method="post" th:action="@{/app/recipes/addRecipe/}" th:object="${recipe}">
+        <form action="#" method="post" th:action="@{/app/recipes/addRecipe}" th:object="${recipe}">
             <p th:utext="#{AddRecipe.start}"></p>
 
             <div>
-                <td th:text="#{AddRecipe.recipeName}">Recipe name:</td>
-                <td><input type="text" th:field="*{name}"/></td>
+                <p th:text="#{AddRecipe.recipeName}">Recipe name:</p>
+                <input type="text" th:field="*{name}"/>
             </div>
 
             <div>
-                <td th:text="#{AddRecipe.preparationTime}">Preparation time in minutes:</td>
-                <td><input type="number" th:field="*{timeInMinutes}" /></td>
+                <p th:text="#{AddRecipe.preparationTime}">Preparation time in minutes:</p>
+                <input type="number" th:field="*{timeInMinutes}" />
             </div>
 
-            <div>
-                <td th:text="#{Commons.description}">Description:</td>
-                <td><textarea type="text" th:field="*{description}"></textarea></td>
-            </div>
-
+            </br></br>
             <div>
                 <label th:text="#{AddRecipe.selectIngredients}">Select ingredients:</label>
                 <table>
 
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Ingredient</th>
-                            <th>Unit</th>
+                            <th>Unit of weight:</th>
                             <th>Amount</th>
                             <th>
                                 <button type="submit"
-                                        name="addIngredient"
+                                        name="addRow"
                                         th:text="#{AddIngredient.add}">Add Ingredient</button>
                             </th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr th:each="ingredient,ingredientStat : *{ingredients}">
-                            <td th:text="${ingredientStat.count}">1</td>
+                        <tr th:each="row,rowStat : *{ingredientDataRows}">
+                            <td th:text="${rowStat.count}">1</td>
                             <td>
-                                <select th:field="*{ingredients[__${ingredientStat.index}__].name}">
-                                        <option th:each="ing : ${ingredientList}"
-                                                th:value="${ing.id}"
-                                                th:text="${ing.name}">Potato</option>
+                                <select th:field="*{ingredientDataRows[__${rowStat.index}__].ingredient}">
+                                    <option th:each="ing : ${allIngredients}"
+                                            th:value="${ing.name}"
+                                            th:text="${ing.name}">Potato</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" th:field="*{ingredients[__${ingredientStat.index}__].amount}" />
+                                <select th:field="*{ingredientDataRows[__${rowStat.index}__].unitOfWeight}">
+                                    <option th:each="unit : ${allUnitsOfWeight}"
+                                            th:value="${unit.name}"
+                                            th:text="${unit.name}">Gram</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" th:field="*{ingredientDataRows[__${rowStat.index}__].amount}" />
                             </td>
                             <td>
                                 <button type="submit"
-                                        name="removeIngredient"
-                                        th:value="${ingredientStat.index}"
+                                        name="removeRow"
+                                        th:value="${rowStat.index}"
                                         th:text="#{AddRecipe.removeIngredient}">Remove ingredient</button>
                             </td>
                         </tr>
@@ -82,8 +86,17 @@
             </div>
 
             <div>
-                <button type="submit" name="save">Add recipe</button>
+                </br></br></br>
+                <p th:text="#{Commons.description}">Description:</p>
+                </br>
+                <textarea type="text" th:field="*{description}" rows="8" cols="75"></textarea>
             </div>
+
+            <div>
+                </br></br>
+                <input type="submit" value="Save recipe" />
+            </div>
+
         </form>
 
     </div>

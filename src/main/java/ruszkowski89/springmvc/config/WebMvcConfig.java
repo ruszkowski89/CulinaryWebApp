@@ -33,7 +33,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements Applicat
     }
 
     @Bean
-    public ViewResolver viewResolver(){
+    public ThymeleafViewResolver viewResolver(){
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         resolver.setCharacterEncoding("UTF-8");
@@ -41,17 +41,18 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements Applicat
     }
 
     @Bean
-    public ITemplateResolver templateResolver(){
+    public SpringResourceTemplateResolver templateResolver(){
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setApplicationContext(applicationContext);
+        resolver.setApplicationContext(this.applicationContext);
         resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".html");
+        resolver.setCacheable(true);
         return resolver;
     }
 
     @Bean
-    public TemplateEngine templateEngine(){
+    public SpringTemplateEngine templateEngine(){
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setEnableSpringELCompiler(true);
         templateEngine.setTemplateResolver(templateResolver());

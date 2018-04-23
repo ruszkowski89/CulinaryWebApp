@@ -45,27 +45,6 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.deleteById(id);
     }
 
-    public List<Ingredient> getIngredients(Recipe recipe){
-        return recipe.getIngredients();
-    }
-
-    // TODO: find a clean way to write addIngredient and deleteIngredient methods
-    @Override
-    public void addIngredientToRecipe(Recipe recipe, Ingredient ingredient) {
-        List<Ingredient> ingredientList = getIngredients(recipe);
-        ingredientList.add(ingredient);
-        recipe.setIngredients(ingredientList);
-        recipeRepository.save(recipe);
-    }
-
-    @Override
-    public void deleteIngredientFromRecipe(Ingredient ingredient, Recipe recipe) {
-        List<Ingredient> ingredientList = getIngredients(recipe);
-        ingredientList.remove(ingredient);
-        recipe.setIngredients(ingredientList);
-        recipeRepository.save(recipe);
-    }
-
     @Override
     public User getAuthor(Recipe recipe) {
         return recipe.getUser();

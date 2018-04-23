@@ -11,8 +11,7 @@ public interface IngredientService {
     Ingredient get(long id);
     Ingredient get(String name);
     void save(Ingredient ingredient);
-    void update(Ingredient ingredient);
-    void deleteFromDatabase(long id);
+    void delete(long id);
     boolean isInDatabase(Ingredient ingredient);
 
 }

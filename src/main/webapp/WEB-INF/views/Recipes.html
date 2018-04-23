@@ -20,14 +20,10 @@
         <table>
             <tr>
                 <th th:text="#{Commons.name}">  Name: </th>
-                <th th:text="#{Recipes.time}">  Time (min.):</th>
-                <th th:text="#{Commons.date}">  Date: </th>
                 <th th:text="#{Commons.link}">  Link</th>
             </tr>
-            <tr th:each="recipe : ${recipeList}">
+            <tr th:each="recipe : ${allRecipes}">
                 <td th:text="${recipe.name}"></td>
-                <td th:text="${recipe.timeInMinutes}"></td>
-                <td th:text="${{recipe.date}}"></td>
                 <td><a th:href="@{'recipes/' + ${recipe.id}}" th:text="#{Commons.view}">view</a></td>
             </tr>
 

@@ -1,9 +1,6 @@
 package ruszkowski89.springmvc.model;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
-public enum Unit {
+public enum UnitOfWeight {
     GRAM("GRAM"),
     KILOGRAM("KILOGRAM"),
     MILILITER("MILILITER"),
@@ -12,20 +9,22 @@ public enum Unit {
     TEASPOON("TEASPOON"),
     UNIT("UNIT");
 
-    public static final Unit[] ALL = {
+    public static final UnitOfWeight[] ALL = {
         GRAM, KILOGRAM, MILILITER, LITER, TABLESPOON, TEASPOON, UNIT};
 
-    String name;
+    private final String name;
 
-    Unit(String quantity){
-        this.name = quantity;
+    private UnitOfWeight(final String name){
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String toString() {
+        return getName();
     }
+
 }

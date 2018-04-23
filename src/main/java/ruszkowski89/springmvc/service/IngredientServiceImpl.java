@@ -42,12 +42,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void update(Ingredient ingredient) {
-        ingredientRepository.save(ingredient);
-    }
-
-    @Override
-    public void deleteFromDatabase(long id) {
+    public void delete(long id) {
         ingredientRepository.deleteById(id);
     }
 

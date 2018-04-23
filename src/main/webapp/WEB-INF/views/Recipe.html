@@ -14,20 +14,35 @@
     <div id="logoAndAccount" th:insert="fragments/logoAndAccount :: logoAndAccount" />
     <div id="buttonBars" th:insert="fragments/buttonBars :: buttonBars" />
 
-    <!--/*@thymesVar id="recipe" type="ruszkowski89.springmvc.model.Recipe"*/-->
-    <div id="content" th:object="${recipe}">
+    <div id="content" th:object="${recipeData}">
 
-        <span class="bigtitle" th:text="${recipe.name}"> Recipe:  </span>
+        <span class="bigtitle" th:text="*{name}"> Recipe:  </span>
         <div class="dottedline"></div>
 
-        <p th:text="'Author: ' + *{user}"></p>
-        <p th:text="'Time needed for preparation: ' + *{timeInMinutes}"></p>
-        <p th:text="'Ingredients needed:' >
-            <li
-        </p>
-        <p th:text="*{name}"></p>
-        <p th:text="*{name}"></p>
+        <p th:text="'Author: ' + *{user.userName}"></p>
+        <p th:text="'Time needed for preparation: ' + *{timeInMinutes} + ' minutes'"></p>
+        <p th:text="'Ingredients needed:'"></p>
 
+        <ul>
+            <li th:each="row : *{ingredientDataRows}" th:text="${row}"></li>
+        </ul>
+
+<!--        <table>
+            <thead>
+                <tr>
+                    <th>Ingredient</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row : *{ingredientDataRows}">
+                    <td th:text="${row.amount}">row</td>
+                </tr>
+            </tbody>
+        </table>-->
+
+        </br></br>
+
+        <p th:text="'Description: ' + *{description}"></p>
     </div>
 
     <div id="footer" th:insert="fragments/footer :: footer" />
